@@ -74,6 +74,15 @@
       if (bg && bg !== "none") el.style.setProperty("background-image", "none", "important");
     }
   }
+  // Pre-paint watchdog: a stylesheet can't override an inline !important
+  // background the ad script injects, and the idle-throttled scan clears it too
+  // late (visible flash). requestAnimationFrame fires before the frame paints,
+  // so sweeping every frame for the first ~10s removes the skin before it shows.
+  function skinWatch(n) {
+    clearSkin();
+    if (n > 0) requestAnimationFrame(() => skinWatch(n - 1));
+  }
+  if (pack && pack.bgKill) skinWatch(600);
 
   // ---- runtime state (filled by init) ------------------------------------
   let CFG = Object.assign({}, DEFAULTS);

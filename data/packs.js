@@ -72,13 +72,12 @@ globalThis.BETBLOCK_PACKS = {
         '.mobiletop.smartphone-only',
         '.centered-placement-bottom-spacing',
         '.centered-placement',
-        // Background "skin"/wallpaper takeover ad.
-        '.bgPadding .bg-enabler[data-imp-trk]',
-        '.bg-enabler-child.left',
-        '.bg-enabler-child.right',
-        // Sticky left/right sidebar ad rails.
-        '.bg-sidebar.left .secondary-sidebar-container',
-        '.bg-sidebar.right .secondary-sidebar-container',
+        // Background "skin"/wallpaper takeover overlay + sticky sidebar ad rails.
+        // Broad class-contains match so runtime variants (whatever side classes
+        // htlbid injects) are removed ENTIRELY from document_start — the element,
+        // its image, and its click region all go, with no flash.
+        '[class*="bg-enabler"]',
+        '[class*="bg-sidebar"]',
         // Lazy 1x1 placeholder ad slots expanded at runtime.
         'div[style*="height: 1px"][style*="width: 1px"][data-imp-trk]',
       ],
