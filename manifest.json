@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Betting Blocker",
   "version": "1.0.0",
-  "description": "Actively blocks betting & gambling content (sites, widgets, ads, links) everywhere. Aggressive scrubbing on opted-in sites; HLTV preconfigured.",
+  "description": "Blocks betting & gambling: bookmaker sites, betting links and widgets, and HLTV's betting column. Pair with an ad blocker for ads.",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
