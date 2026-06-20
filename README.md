@@ -1,5 +1,38 @@
 # Betting Blocker
 
+Blocks betting & gambling content — bookmaker sites, and HLTV's native betting
+column/widgets.
+
+## Recommended: uBlock Origin + this filter list
+
+For **ad blocking**, use [uBlock Origin](https://ublockorigin.com/) — its
+maintained lists (EasyList/EasyPrivacy) are far more comprehensive than any
+hand-curated list, and it's the right tool for the job. This project then adds
+just the **betting** piece that uBO's ad lists don't cover, as an importable
+filter list: [`filters/betting.txt`](filters/betting.txt).
+
+**How to use it:**
+
+1. Install uBlock Origin and leave its default ad/privacy lists enabled.
+2. Add the betting list, either way:
+   - **Paste:** open uBO dashboard → **My filters** → paste the contents of
+     [`filters/betting.txt`](filters/betting.txt) → **Apply changes**; or
+   - **Subscribe:** uBO dashboard → **Filter lists** → **Import** → paste the
+     raw URL of `filters/betting.txt` (needs the repo to be public).
+
+That's it — uBO blocks ads, this list blocks gambling domains (295) and hides
+HLTV's betting column (12 cosmetic rules). Regenerate the list after editing the
+data with `python tools/build_ublock_filters.py`.
+
+> The standalone MV3 extension below still exists and works, but with uBlock
+> Origin in the picture its **ad layer is redundant** — uBO does it better. Keep
+> the extension only if you want the betting features (popup, i18n, aggressive
+> mode) without running uBO; otherwise uBO + `betting.txt` is the cleaner setup.
+
+---
+
+## Standalone extension (alternative)
+
 A Chrome extension (Manifest V3) that actively blocks betting & gambling
 content — **and, optionally, all ads & trackers** — on **every website**, not
 just one. Built generic-engine + site-packs: the same engine runs everywhere,
