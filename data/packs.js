@@ -82,6 +82,23 @@ globalThis.BETBLOCK_PACKS = {
         // Lazy 1x1 placeholder ad slots expanded at runtime.
         'div[style*="height: 1px"][style*="width: 1px"][data-imp-trk]',
       ],
+      // Background / "skin" / wallpaper takeover ads (e.g. Hellcase). The
+      // creative is painted as a CSS background-image, so display:none on the
+      // wrong element won't remove it — these get `background-image:none` and
+      // an inline-style sweep instead. High-specificity selectors (html body)
+      // beat a later !important rule the ad script injects.
+      bgKill: [
+        'html',
+        'html body',
+        'html .bgPadding',
+        '.bg-enabler',
+        '.bg-enabler-child',
+        '.bg-enabler-child.left',
+        '.bg-enabler-child.right',
+        '.bg-sidebar',
+        '.bg-sidebar.left',
+        '.bg-sidebar.right',
+      ],
       optional: {
         // Community win-probability vote: betting-ADJACENT but free / non-money.
         vote: ['.pick-a-winner-wrapper'],

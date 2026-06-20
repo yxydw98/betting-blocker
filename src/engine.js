@@ -37,11 +37,12 @@
 
   // ---- instant structural hide (sync, before paint) ----------------------
   const styleEls = []; // { el, tag }
-  function injectCss(selectors, tag) {
+  function injectCss(selectors, tag, decl) {
     if (!selectors || !selectors.length) return;
     const el = document.createElement("style");
     el.setAttribute("data-betblock", tag || "core");
-    el.textContent = selectors.join(",\n") + "{display:none !important;}";
+    el.textContent =
+      selectors.join(",\n") + "{" + (decl || "display:none !important;") + "}";
     (document.head || document.documentElement).appendChild(el);
     styleEls.push({ el, tag: tag || "core" });
   }
@@ -53,7 +54,26 @@
   // ad-blocking off). "bet" = betting layer, "ads" = general ad layer.
   if (pack) injectCss(pack.core, "bet");
   if (pack) injectCss(pack.adCore, "ads");
+  if (pack) injectCss(pack.bgKill, "ads", "background-image:none !important;");
   injectCss(ADS.cosmetic, "ads"); // generic ad cosmetics, every site
+
+  // Runtime sweep for background/skin takeover ads: the ad script can set the
+  // creative via an inline style (possibly !important), which a stylesheet
+  // can't override — so clear it directly off the skin elements.
+  let adsOn = true; // assume on until config says otherwise
+  function clearSkin() {
+    if (!adsOn || !pack || !pack.bgKill) return;
+    let els;
+    try {
+      els = document.querySelectorAll(pack.bgKill.join(","));
+    } catch {
+      return;
+    }
+    for (const el of els) {
+      const bg = el.style && el.style.backgroundImage;
+      if (bg && bg !== "none") el.style.setProperty("background-image", "none", "important");
+    }
+  }
 
   // ---- runtime state (filled by init) ------------------------------------
   let CFG = Object.assign({}, DEFAULTS);
@@ -250,6 +270,7 @@
     const nodes = pending;
     pending = [];
     for (const n of nodes) if (n && n.nodeType === 1 && document.contains(n)) processRoot(n);
+    clearSkin();
     if (CFG.debug && hidden) console.debug("[betting-blocker] hidden:", hidden);
   }
   function schedule() {
@@ -308,7 +329,8 @@
       return;
     }
     // Ad-blocking off -> drop the instantly-injected ad CSS (betting stays).
-    if (CFG.blockAds === false) removeTag("ads");
+    adsOn = CFG.blockAds !== false;
+    if (!adsOn) removeTag("ads");
 
     aggressive =
       CFG.aggressiveAllSites === true ||
@@ -336,7 +358,10 @@
     }
 
     observer.observe(document.documentElement, { childList: true, subtree: true });
-    const full = () => processRoot(document.documentElement);
+    const full = () => {
+      processRoot(document.documentElement);
+      clearSkin();
+    };
     full();
     if (document.readyState === "loading")
       document.addEventListener("DOMContentLoaded", full, { once: true });
