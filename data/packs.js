@@ -15,7 +15,6 @@
 globalThis.BETBLOCK_PACKS = {
   defaults: {
     enabled: true,
-    blockAds: true,                  // block ALL ads/trackers (not just betting)
     blockNavigation: true,           // redirect navigations to bookmaker sites
     aggressiveAllSites: false,       // BETA: full text/brand scrubbing on EVERY site
     aggressiveHosts: ["hltv.org"],   // full text/brand scrubbing on these hosts
@@ -49,54 +48,6 @@ globalThis.BETBLOCK_PACKS = {
         // Affiliate outbound links + bookmaker creatives.
         'a[href^="https://bcwp.hltv.org"]',
         'img[src*="assets-bcwp.hltv.org"]',
-      ],
-      // General display/banner ads (hidden only when `blockAds` is on).
-      // Verified against hltv.org home / results / match pages.
-      adCore: [
-        // Every htlbid/Aditude impression-tracked ad slot is marked by this attr.
-        '[data-imp-trk]',
-        // Rendered banner creatives go through HLTV's /out2/ ad redirector.
-        'a[href^="/out2/"]',
-        // Aditude (htlbid framework) placement containers.
-        '.aditude-placement',
-        '[data-aditude-base-div-id]',
-        '[id^="aditude-placement-"]',
-        '[data-id-prefix^="aditude-placement-"]',
-        // Live GPT ad divs injected by htlbid.js.
-        'div[class*="htlad-"]',
-        'div[id*="htlad-"]',
-        // Match-page banner after the betting block.
-        '.matchpage-after-betting-desktop-mobile-new',
-        // Top mobile banner + centered placement wrappers.
-        '.mobiletop.centered-placement',
-        '.mobiletop.smartphone-only',
-        '.centered-placement-bottom-spacing',
-        '.centered-placement',
-        // Background "skin"/wallpaper takeover overlay + sticky sidebar ad rails.
-        // Broad class-contains match so runtime variants (whatever side classes
-        // htlbid injects) are removed ENTIRELY from document_start — the element,
-        // its image, and its click region all go, with no flash.
-        '[class*="bg-enabler"]',
-        '[class*="bg-sidebar"]',
-        // Lazy 1x1 placeholder ad slots expanded at runtime.
-        'div[style*="height: 1px"][style*="width: 1px"][data-imp-trk]',
-      ],
-      // Background / "skin" / wallpaper takeover ads (e.g. Hellcase). The
-      // creative is painted as a CSS background-image, so display:none on the
-      // wrong element won't remove it — these get `background-image:none` and
-      // an inline-style sweep instead. High-specificity selectors (html body)
-      // beat a later !important rule the ad script injects.
-      bgKill: [
-        'html',
-        'html body',
-        'html .bgPadding',
-        '.bg-enabler',
-        '.bg-enabler-child',
-        '.bg-enabler-child.left',
-        '.bg-enabler-child.right',
-        '.bg-sidebar',
-        '.bg-sidebar.left',
-        '.bg-sidebar.right',
       ],
       optional: {
         // Community win-probability vote: betting-ADJACENT but free / non-money.

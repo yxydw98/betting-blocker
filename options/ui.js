@@ -3,7 +3,6 @@
 
 const DEFAULTS = {
   enabled: true,
-  blockAds: true,
   blockNavigation: true,
   aggressiveAllSites: false,
   hideVote: false,
@@ -19,7 +18,6 @@ let currentLang = "en"; // resolved language for dynamic strings
 
 const FIELDS = {
   enabled: "checkbox",
-  blockAds: "checkbox",
   blockNavigation: "checkbox",
   aggressiveAllSites: "checkbox",
   hideVote: "checkbox",
@@ -122,16 +120,13 @@ function toggleSite() {
 function showStats() {
   const el = $("stats");
   if (!el) return;
-  Promise.all([
-    fetch(chrome.runtime.getURL("data/lists.json")).then((r) => r.json()),
-    fetch(chrome.runtime.getURL("data/ad_domains.json")).then((r) => r.json()),
-  ])
-    .then(([l, a]) => {
+  fetch(chrome.runtime.getURL("data/lists.json"))
+    .then((r) => r.json())
+    .then((l) => {
       el.textContent = bbT(currentLang, "stats_tpl")
         .replace("{g}", l.domains.length)
         .replace("{b}", l.brands.length)
-        .replace("{p}", l.textKeywords.length)
-        .replace("{a}", a.domains.length);
+        .replace("{p}", l.textKeywords.length);
     })
     .catch(() => {});
 }

@@ -13,7 +13,6 @@ const BB_I18N = {
     // popup
     popup_title: "Betting Blocker",
     enabled: "Extension enabled",
-    block_ads: "Block all ads & trackers",
     block_nav: "Block visiting betting sites",
     this_site: "This site:",
     all_settings: "All settings…",
@@ -33,12 +32,6 @@ const BB_I18N = {
       'Redirect navigations to any blocklisted gambling domain to a "blocked" page. Off = only embedded betting widgets/ads are blocked.',
     debug: "Debug logging",
     debug_desc: "Log hidden-element counts to the page console.",
-    sec_ads: "Ad blocking",
-    ads_hint:
-      "Independent of the betting filter — strips general advertising & trackers, not just betting ads.",
-    block_ads_label: "Block all ads & trackers (every site)",
-    block_ads_desc:
-      "Network-blocks 400+ ad/tracker domains and hides ad slots (AdSense, GPT, ad-network iframes) site-wide, plus HLTV's banner/skin ads. Uses a curated, audited list — not full EasyList — so a few ads may slip through; add domains below to extend it.",
     sec_aggr: "Aggressive mode",
     aggr_hint:
       "Aggressive mode also removes betting links, brand widgets, and gambling keywords from the page — not just known domains. Network-level domain blocking happens on all sites regardless of this setting.",
@@ -67,7 +60,7 @@ const BB_I18N = {
     lang_auto: "Auto (follow browser)",
     save: "Save",
     stats_tpl:
-      "Blocklists: {g} gambling domains, {b} brands, {p} betting phrases, {a} ad/tracker domains.",
+      "Blocklist: {g} gambling domains, {b} brands, {p} betting phrases.",
     // blocked page
     blocked_title: "Betting site blocked",
     blocked_desc:
@@ -80,7 +73,6 @@ const BB_I18N = {
     // popup
     popup_title: "投注拦截器",
     enabled: "启用扩展",
-    block_ads: "拦截所有广告和追踪器",
     block_nav: "拦截访问博彩网站",
     this_site: "当前网站：",
     all_settings: "全部设置…",
@@ -100,12 +92,6 @@ const BB_I18N = {
       "将访问任何名单内博彩域名的导航跳转到“已拦截”页面。关闭后仅拦截页面内嵌的博彩组件/广告。",
     debug: "调试日志",
     debug_desc: "在页面控制台输出被隐藏元素的数量。",
-    sec_ads: "广告拦截",
-    ads_hint:
-      "独立于博彩过滤功能 — 拦截一般广告与追踪器，而不仅是博彩广告。",
-    block_ads_label: "拦截所有广告和追踪器（所有网站）",
-    block_ads_desc:
-      "在网络层拦截 400+ 个广告/追踪域名，并在全站隐藏广告位（AdSense、GPT、广告联盟 iframe），以及 HLTV 的横幅/皮肤广告。使用经审核的精选名单（并非完整 EasyList），少量广告可能漏网；可在下方添加域名以扩展。",
     sec_aggr: "激进模式",
     aggr_hint:
       "激进模式还会从页面中移除博彩链接、品牌组件和赌博关键词，而不仅是已知域名。无论此设置如何，网络层域名拦截都会在所有网站生效。",
@@ -133,7 +119,7 @@ const BB_I18N = {
     lang_auto: "自动（跟随浏览器）",
     save: "保存",
     stats_tpl:
-      "拦截列表：{g} 个博彩域名、{b} 个品牌、{p} 条投注短语、{a} 个广告/追踪域名。",
+      "拦截列表：{g} 个博彩域名、{b} 个品牌、{p} 条投注短语。",
     // blocked page
     blocked_title: "已拦截博彩网站",
     blocked_desc:

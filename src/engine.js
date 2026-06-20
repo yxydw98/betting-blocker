@@ -1,8 +1,9 @@
 /*
- * Betting Blocker — content engine.
+ * Betting Blocker — content engine (betting-only).
  *
- * Runs on every page at document_start. Two confidence tiers, mirroring the
- * false-positive audit that produced the lists:
+ * Runs on every page at document_start. General ad blocking is intentionally
+ * NOT done here — pair this with uBlock Origin / uBO Lite for ads. Two tiers,
+ * mirroring the false-positive audit that produced the lists:
  *
  *   CONSERVATIVE (every site, default):
  *     - structural site-pack selectors (instant CSS, e.g. HLTV) — high confidence
@@ -25,7 +26,6 @@
 
   const PACKS = globalThis.BETBLOCK_PACKS || { defaults: {}, sites: [] };
   const DEFAULTS = PACKS.defaults || {};
-  const ADS = globalThis.BETBLOCK_ADS || { cosmetic: [] };
   const HOST = location.hostname.replace(/^www\./, "");
 
   // Don't run on the extension's own pages.
@@ -36,53 +36,18 @@
   );
 
   // ---- instant structural hide (sync, before paint) ----------------------
-  const styleEls = []; // { el, tag }
-  function injectCss(selectors, tag, decl) {
+  const styleEls = [];
+  function injectCss(selectors) {
     if (!selectors || !selectors.length) return;
     const el = document.createElement("style");
-    el.setAttribute("data-betblock", tag || "core");
-    el.textContent =
-      selectors.join(",\n") + "{" + (decl || "display:none !important;") + "}";
+    el.setAttribute("data-betblock", "css");
+    el.textContent = selectors.join(",\n") + "{display:none !important;}";
     (document.head || document.documentElement).appendChild(el);
-    styleEls.push({ el, tag: tag || "core" });
+    styleEls.push(el);
   }
-  function removeTag(tag) {
-    for (const s of styleEls) if (s.tag === tag) s.el.remove();
-  }
-  // Apply selectors immediately, assuming the relevant toggles are on; init()
-  // tears down whichever layer turns out to be off (extension disabled, or
-  // ad-blocking off). "bet" = betting layer, "ads" = general ad layer.
-  if (pack) injectCss(pack.core, "bet");
-  if (pack) injectCss(pack.adCore, "ads");
-  if (pack) injectCss(pack.bgKill, "ads", "background-image:none !important;");
-  injectCss(ADS.cosmetic, "ads"); // generic ad cosmetics, every site
-
-  // Runtime sweep for background/skin takeover ads: the ad script can set the
-  // creative via an inline style (possibly !important), which a stylesheet
-  // can't override — so clear it directly off the skin elements.
-  let adsOn = true; // assume on until config says otherwise
-  function clearSkin() {
-    if (!adsOn || !pack || !pack.bgKill) return;
-    let els;
-    try {
-      els = document.querySelectorAll(pack.bgKill.join(","));
-    } catch {
-      return;
-    }
-    for (const el of els) {
-      const bg = el.style && el.style.backgroundImage;
-      if (bg && bg !== "none") el.style.setProperty("background-image", "none", "important");
-    }
-  }
-  // Pre-paint watchdog: a stylesheet can't override an inline !important
-  // background the ad script injects, and the idle-throttled scan clears it too
-  // late (visible flash). requestAnimationFrame fires before the frame paints,
-  // so sweeping every frame for the first ~10s removes the skin before it shows.
-  function skinWatch(n) {
-    clearSkin();
-    if (n > 0) requestAnimationFrame(() => skinWatch(n - 1));
-  }
-  if (pack && pack.bgKill) skinWatch(600);
+  // Apply the pack's betting selectors immediately, assuming enabled; init()
+  // tears them down if the extension turns out to be disabled.
+  if (pack) injectCss(pack.core);
 
   // ---- runtime state (filled by init) ------------------------------------
   let CFG = Object.assign({}, DEFAULTS);
@@ -106,10 +71,6 @@
   const ATTR_RE = /\b(betting|bookmaker|sportsbook|gambling|apostas|sportwetten|betslip)\b/i;
   const WORD_RE = /\b(betting|bookmaker|sportsbook|gambling|odds)\b/;
 
-  function cls(el) {
-    const c = el && el.getAttribute && el.getAttribute("class");
-    return ((c || "") + " " + ((el && el.id) || "")).toLowerCase();
-  }
   function isProtected(el) {
     return !!(el && el.matches && el.matches(PROTECTED));
   }
@@ -279,7 +240,6 @@
     const nodes = pending;
     pending = [];
     for (const n of nodes) if (n && n.nodeType === 1 && document.contains(n)) processRoot(n);
-    clearSkin();
     if (CFG.debug && hidden) console.debug("[betting-blocker] hidden:", hidden);
   }
   function schedule() {
@@ -334,12 +294,9 @@
     CFG = Object.assign({}, DEFAULTS, cfg);
 
     if (CFG.enabled === false) {
-      for (const s of styleEls) s.el.remove();
+      for (const el of styleEls) el.remove();
       return;
     }
-    // Ad-blocking off -> drop the instantly-injected ad CSS (betting stays).
-    adsOn = CFG.blockAds !== false;
-    if (!adsOn) removeTag("ads");
 
     aggressive =
       CFG.aggressiveAllSites === true ||
@@ -363,14 +320,11 @@
       if (CFG.hideVote && pack.optional.vote) extra.push(...pack.optional.vote);
       if (CFG.hideForumLink && pack.optional.forumLink)
         extra.push(...pack.optional.forumLink);
-      if (extra.length) injectCss(extra, "optional");
+      if (extra.length) injectCss(extra);
     }
 
     observer.observe(document.documentElement, { childList: true, subtree: true });
-    const full = () => {
-      processRoot(document.documentElement);
-      clearSkin();
-    };
+    const full = () => processRoot(document.documentElement);
     full();
     if (document.readyState === "loading")
       document.addEventListener("DOMContentLoaded", full, { once: true });

@@ -28,11 +28,6 @@
         "id": "navigation",
         "enabled": true,
         "path": "rules/navigation.json"
-      },
-      {
-        "id": "ads",
-        "enabled": true,
-        "path": "rules/ads.json"
       }
     ]
   },
@@ -42,14 +37,14 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["data/packs.js", "data/ad_selectors.js", "src/engine.js"],
+      "js": ["data/packs.js", "src/engine.js"],
       "run_at": "document_start",
       "all_frames": true
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["blocked.html", "data/lists.json", "data/ad_domains.json"],
+      "resources": ["blocked.html", "data/lists.json"],
       "matches": ["<all_urls>"]
     }
   ],
