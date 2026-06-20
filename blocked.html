@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blocked — Betting Blocker</title>
+  <title data-i18n-title="blocked_title">Blocked — Betting Blocker</title>
   <style>
     :root { color-scheme: light dark; }
     html, body { height: 100%; margin: 0; }
@@ -31,13 +31,14 @@
 <body>
   <div class="card">
     <div class="mark">🚫</div>
-    <h1>Betting site blocked</h1>
-    <p>Betting Blocker stopped this page from loading because it matched a gambling / bookmaker domain.</p>
+    <h1 data-i18n="blocked_title">Betting site blocked</h1>
+    <p data-i18n="blocked_desc">Betting Blocker stopped this page from loading because it matched a gambling / bookmaker domain.</p>
     <div class="row">
-      <button id="back">Go back</button>
-      <button class="secondary" id="opts">Settings</button>
+      <button id="back" data-i18n="back">Go back</button>
+      <button class="secondary" id="opts" data-i18n="settings">Settings</button>
     </div>
   </div>
+  <script src="i18n.js"></script>
   <script src="blocked.js"></script>
 </body>
 </html>

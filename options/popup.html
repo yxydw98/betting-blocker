@@ -22,22 +22,23 @@
   </style>
 </head>
 <body>
-  <h1>🚫 Betting Blocker</h1>
+  <h1>🚫 <span data-i18n="popup_title">Betting Blocker</span></h1>
 
-  <label class="row"><input type="checkbox" id="enabled" /> Extension enabled</label>
-  <label class="row"><input type="checkbox" id="blockAds" /> Block all ads &amp; trackers</label>
-  <label class="row"><input type="checkbox" id="blockNavigation" /> Block visiting betting sites</label>
+  <label class="row"><input type="checkbox" id="enabled" /> <span data-i18n="enabled">Extension enabled</span></label>
+  <label class="row"><input type="checkbox" id="blockAds" /> <span data-i18n="block_ads">Block all ads &amp; trackers</span></label>
+  <label class="row"><input type="checkbox" id="blockNavigation" /> <span data-i18n="block_nav">Block visiting betting sites</span></label>
 
   <div class="site" id="siteBox">
-    <div>This site: <b id="siteHost">—</b></div>
-    <button id="toggleSite">Aggressive mode</button>
+    <div><span data-i18n="this_site">This site:</span> <b id="siteHost">—</b></div>
+    <button id="toggleSite" data-i18n="aggr_btn">Aggressive mode</button>
   </div>
 
   <div class="foot">
-    <a id="openOptions">All settings…</a>
+    <a id="openOptions" data-i18n="all_settings">All settings…</a>
     <span id="status"></span>
   </div>
 
+  <script src="../i18n.js"></script>
   <script src="ui.js"></script>
 </body>
 </html>

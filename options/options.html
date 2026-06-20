@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Betting Blocker — Settings</title>
+  <title data-i18n-title="options_title">Betting Blocker — Settings</title>
   <style>
     :root { color-scheme: light dark; }
     body { max-width: 680px; margin: 0 auto; padding: 32px 24px 60px;
@@ -22,78 +22,92 @@
     textarea { width: 100%; box-sizing: border-box; min-height: 84px; resize: vertical;
       font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
       background: #0e1116; color: #e6e6e6; border: 1px solid #2a3340; border-radius: 8px; padding: 9px; }
+    select { font: inherit; background: #0e1116; color: #e6e6e6; border: 1px solid #2a3340;
+      border-radius: 8px; padding: 8px 10px; }
     .field { margin-top: 12px; }
     .field > label { font-weight: 600; display: block; margin-bottom: 5px; }
     .bar { position: sticky; bottom: 0; display: flex; align-items: center; gap: 14px;
-      padding: 14px 0 0; }
+      padding: 14px 0 0; flex-wrap: wrap; }
     button#save { font: inherit; cursor: pointer; padding: 9px 22px; border-radius: 8px;
       border: 0; background: #1f6feb; color: #fff; font-weight: 600; }
     #status { color: #7ee787; }
     #stats { color: #9aa4b2; font-size: 13px; }
-    code { background: #0e1116; padding: 1px 5px; border-radius: 4px; }
   </style>
 </head>
 <body>
-  <h1>🚫 Betting Blocker</h1>
-  <p class="sub">Blocks betting &amp; gambling everywhere. Conservative on all sites; aggressive on the ones you opt in.</p>
+  <h1>🚫 <span data-i18n="app_h1">Betting Blocker</span></h1>
+  <p class="sub" data-i18n="subtitle">Blocks betting &amp; gambling everywhere. Conservative on all sites; aggressive on the ones you opt in.</p>
 
   <section>
-    <h2>General</h2>
+    <h2 data-i18n="sec_general">General</h2>
     <label class="row"><input type="checkbox" id="enabled" />
-      <span class="t">Extension enabled<small>Master switch.</small></span></label>
+      <span class="t"><span data-i18n="enabled">Extension enabled</span><small data-i18n="enabled_desc">Master switch.</small></span></label>
     <label class="row"><input type="checkbox" id="blockNavigation" />
-      <span class="t">Block visiting betting sites<small>Redirect navigations to any blocklisted gambling domain to a "blocked" page. Off = only embedded betting widgets/ads are blocked.</small></span></label>
+      <span class="t"><span data-i18n="block_nav">Block visiting betting sites</span><small data-i18n="block_nav_desc">Redirect navigations to any blocklisted gambling domain to a "blocked" page. Off = only embedded betting widgets/ads are blocked.</small></span></label>
     <label class="row"><input type="checkbox" id="debug" />
-      <span class="t">Debug logging<small>Log hidden-element counts to the page console.</small></span></label>
+      <span class="t"><span data-i18n="debug">Debug logging</span><small data-i18n="debug_desc">Log hidden-element counts to the page console.</small></span></label>
   </section>
 
   <section>
-    <h2>Ad blocking</h2>
-    <p class="hint">Independent of the betting filter — strips general advertising &amp; trackers, not just betting ads.</p>
+    <h2 data-i18n="sec_ads">Ad blocking</h2>
+    <p class="hint" data-i18n="ads_hint">Independent of the betting filter — strips general advertising &amp; trackers, not just betting ads.</p>
     <label class="row"><input type="checkbox" id="blockAds" />
-      <span class="t">Block all ads &amp; trackers (every site)<small>Network-blocks 400+ ad/tracker domains and hides ad slots (AdSense, GPT, ad-network iframes) site-wide, plus HLTV's banner/skin ads. Uses a curated, audited list — not full EasyList — so a few ads may slip through; add domains below to extend it.</small></span></label>
+      <span class="t"><span data-i18n="block_ads_label">Block all ads &amp; trackers (every site)</span><small data-i18n="block_ads_desc">Network-blocks 400+ ad/tracker domains and hides ad slots (AdSense, GPT, ad-network iframes) site-wide, plus HLTV's banner/skin ads. Uses a curated, audited list — not full EasyList — so a few ads may slip through; add domains below to extend it.</small></span></label>
   </section>
 
   <section>
-    <h2>Aggressive mode</h2>
-    <p class="hint">Aggressive mode also removes betting links, brand widgets, and gambling keywords from the page — not just known domains. Network-level domain blocking happens on <em>all</em> sites regardless of this setting.</p>
+    <h2 data-i18n="sec_aggr">Aggressive mode</h2>
+    <p class="hint" data-i18n="aggr_hint">Aggressive mode also removes betting links, brand widgets, and gambling keywords from the page — not just known domains. Network-level domain blocking happens on all sites regardless of this setting.</p>
     <label class="row"><input type="checkbox" id="aggressiveAllSites" />
-      <span class="t">Aggressive mode on <strong>all sites</strong> <span style="color:#d29922">(beta)</span><small>Scrub betting from every site you visit. More thorough, but may hide legitimate content on sports/news sites. Leave off to scrub only the sites listed below.</small></span></label>
+      <span class="t"><span data-i18n="aggr_all_label">Aggressive mode on all sites</span> <span style="color:#d29922" data-i18n="beta">(beta)</span><small data-i18n="aggr_all_desc">Scrub betting from every site you visit. More thorough, but may hide legitimate content on sports/news sites. Leave off to scrub only the sites listed below.</small></span></label>
     <div class="field" style="margin-top:14px">
-      <label>Aggressive on these sites only</label>
-      <p class="hint">Used when the "all sites" beta above is off. One host per line. (Add the current site quickly from the toolbar popup.)</p>
+      <label data-i18n="aggr_hosts_label">Aggressive on these sites only</label>
+      <p class="hint" data-i18n="aggr_hosts_hint">Used when the "all sites" beta above is off. One host per line. (Add the current site quickly from the toolbar popup.)</p>
       <textarea id="aggressiveHosts" spellcheck="false" placeholder="hltv.org"></textarea>
     </div>
   </section>
 
   <section>
-    <h2>HLTV options</h2>
+    <h2 data-i18n="sec_hltv">HLTV options</h2>
     <label class="row"><input type="checkbox" id="hideForumLink" />
-      <span class="t">Hide the betting forum link<small>Removes <code>/forums/betting</code> from the nav.</small></span></label>
+      <span class="t"><span data-i18n="hide_forum">Hide the betting forum link</span><small data-i18n="hide_forum_desc">Removes /forums/betting from the nav.</small></span></label>
     <label class="row"><input type="checkbox" id="hideVote" />
-      <span class="t">Hide the "Pick a winner" vote<small>The free community win-probability vote. Off by default — it's not real-money betting.</small></span></label>
+      <span class="t"><span data-i18n="hide_vote">Hide the "Pick a winner" vote</span><small data-i18n="hide_vote_desc">The free community win-probability vote. Off by default — it's not real-money betting.</small></span></label>
   </section>
 
   <section>
-    <h2>Custom blocklist</h2>
+    <h2 data-i18n="sec_custom">Custom blocklist</h2>
     <div class="field">
-      <label>Extra domains to block (network-level, all sites)</label>
-      <p class="hint">One domain per line, e.g. <code>newbookie.com</code>. Subdomains included automatically.</p>
+      <label data-i18n="extra_domains_label">Extra domains to block (network-level, all sites)</label>
+      <p class="hint" data-i18n="extra_domains_hint">One domain per line, e.g. newbookie.com. Subdomains included automatically.</p>
       <textarea id="extraDomains" spellcheck="false" placeholder="example-bookie.com"></textarea>
     </div>
     <div class="field">
-      <label>Extra keyword phrases (aggressive sites)</label>
-      <p class="hint">One phrase per line. Matched in visible text on aggressive sites only.</p>
+      <label data-i18n="extra_kw_label">Extra keyword phrases (aggressive sites)</label>
+      <p class="hint" data-i18n="extra_kw_hint">One phrase per line. Matched in visible text on aggressive sites only.</p>
       <textarea id="extraTextKeywords" spellcheck="false" placeholder="risk-free bet"></textarea>
     </div>
   </section>
 
+  <section>
+    <h2 data-i18n="sec_language">Language</h2>
+    <div class="field">
+      <label data-i18n="language_label">Interface language</label>
+      <select id="language">
+        <option value="auto" data-i18n="lang_auto">Auto (follow browser)</option>
+        <option value="en">English</option>
+        <option value="zh">中文</option>
+      </select>
+    </div>
+  </section>
+
   <div class="bar">
-    <button id="save">Save</button>
+    <button id="save" data-i18n="save">Save</button>
     <span id="status"></span>
     <span id="stats"></span>
   </div>
 
+  <script src="../i18n.js"></script>
   <script src="ui.js"></script>
 </body>
 </html>

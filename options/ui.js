@@ -9,10 +9,13 @@ const DEFAULTS = {
   hideVote: false,
   hideForumLink: true,
   debug: false,
+  language: "auto",
   aggressiveHosts: ["hltv.org"],
   extraDomains: [],
   extraTextKeywords: [],
 };
+
+let currentLang = "en"; // resolved language for dynamic strings
 
 const FIELDS = {
   enabled: "checkbox",
@@ -41,8 +44,15 @@ function status(msg) {
   status._t = setTimeout(() => (el.textContent = ""), 1500);
 }
 
+function applyLang(setting) {
+  currentLang = bbResolveLang(setting);
+  bbApply(currentLang);
+  if ($("language")) $("language").value = setting || "auto";
+}
+
 function load() {
   chrome.storage.sync.get(DEFAULTS, (cfg) => {
+    applyLang(cfg.language);
     for (const [k, type] of Object.entries(FIELDS)) {
       const el = $(k);
       if (!el) continue;
@@ -62,7 +72,7 @@ function save() {
       if (!el) continue;
       out[k] = type === "checkbox" ? el.checked : parseList(el.value);
     }
-    chrome.storage.sync.set(out, () => status("Saved."));
+    chrome.storage.sync.set(out, () => status(bbT(currentLang, "status_saved")));
   });
 }
 
@@ -89,9 +99,7 @@ function renderSite(cfg) {
     $("siteHost").textContent = host;
     const on = hostMatched(cfg.aggressiveHosts, host);
     btn.dataset.host = host;
-    btn.textContent = on
-      ? "Aggressive mode: ON — turn off"
-      : "Aggressive mode: OFF — turn on";
+    btn.textContent = bbT(currentLang, on ? "aggr_on" : "aggr_off");
     btn.classList.toggle("on", on);
   });
 }
@@ -106,7 +114,7 @@ function toggleSite() {
       : list.concat(host);
     chrome.storage.sync.set({ aggressiveHosts: list }, () => {
       renderSite(Object.assign({}, cfg, { aggressiveHosts: list }));
-      status("Updated — reload the page to apply.");
+      status(bbT(currentLang, "status_updated"));
     });
   });
 }
@@ -119,7 +127,11 @@ function showStats() {
     fetch(chrome.runtime.getURL("data/ad_domains.json")).then((r) => r.json()),
   ])
     .then(([l, a]) => {
-      el.textContent = `Blocklists: ${l.domains.length} gambling domains, ${l.brands.length} brands, ${l.textKeywords.length} betting phrases, ${a.domains.length} ad/tracker domains.`;
+      el.textContent = bbT(currentLang, "stats_tpl")
+        .replace("{g}", l.domains.length)
+        .replace("{b}", l.brands.length)
+        .replace("{p}", l.textKeywords.length)
+        .replace("{a}", a.domains.length);
     })
     .catch(() => {});
 }
@@ -133,6 +145,15 @@ window.addEventListener("DOMContentLoaded", () => {
     if (el) el.addEventListener("change", save);
   }
   $("save") && $("save").addEventListener("click", save);
+  $("language") &&
+    $("language").addEventListener("change", () => {
+      const v = $("language").value;
+      chrome.storage.sync.set({ language: v }, () => {
+        applyLang(v);
+        showStats(); // re-render the localized stats line
+        status(bbT(currentLang, "status_saved"));
+      });
+    });
   $("toggleSite") && $("toggleSite").addEventListener("click", toggleSite);
   $("openOptions") &&
     $("openOptions").addEventListener("click", (e) => {

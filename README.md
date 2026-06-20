@@ -65,6 +65,11 @@ Works in any Chromium browser (Chrome, Edge, Brave, Opera).
 | Hide "Pick a winner" vote | off | HLTV's free community vote (not real-money). |
 | Extra domains | — | Your own domains to block network-wide. |
 | Extra keyword phrases | — | Extra text to scrub on aggressive sites. |
+| Language | Auto | UI language: Auto (follow browser) / English / 中文. |
+
+The UI (popup, options, blocked page) is localized via a self-managed i18n
+layer ([`i18n.js`](i18n.js)) — independent of the browser locale. Add a language
+by extending the `BB_I18N` dictionary and the options `<select>`.
 
 ## Making it apply to more sites
 
