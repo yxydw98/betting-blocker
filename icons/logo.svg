@@ -1,0 +1,35 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#222c3c"/>
+      <stop offset="1" stop-color="#0d1016"/>
+    </linearGradient>
+    <radialGradient id="chip" cx="0.5" cy="0.42" r="0.75">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e7edf5"/>
+    </radialGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff5b60"/>
+      <stop offset="1" stop-color="#d61f26"/>
+    </linearGradient>
+  </defs>
+
+  <!-- app tile -->
+  <rect x="3" y="3" width="122" height="122" rx="29" fill="url(#tile)" stroke="#323d50" stroke-width="2"/>
+
+  <!-- poker chip body -->
+  <circle cx="64" cy="64" r="40" fill="url(#chip)"/>
+  <!-- dark edge spots straddling the rim -->
+  <circle cx="64" cy="64" r="40" fill="none" stroke="#0d1016" stroke-width="10"
+          stroke-dasharray="12 19.4" stroke-dashoffset="6"/>
+  <!-- inner printed ring -->
+  <circle cx="64" cy="64" r="27" fill="none" stroke="#9fb0c3" stroke-width="3"/>
+  <!-- crisp white rim -->
+  <circle cx="64" cy="64" r="39.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- prohibition slash (top-left to bottom-right) -->
+  <g transform="rotate(-45 64 64)">
+    <rect x="15" y="54.5" width="98" height="19" rx="9.5" fill="#0d1016"/>
+    <rect x="17.5" y="57" width="93" height="14" rx="7" fill="url(#bar)"/>
+  </g>
+</svg>

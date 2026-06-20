@@ -124,5 +124,11 @@ tools/                  build_lists.py, build_ad_lists.py, build_rules.py
   network layer until added (use **Extra domains**). Aggressive text scanning
   can occasionally miss or over-hide — report a site and it can be tuned with a
   pack.
-- No icons are bundled (Chrome shows a default). Drop PNGs in and reference them
-  from the manifest if you want a custom one.
+## Icon
+
+The logo lives in [`icons/logo.svg`](icons/logo.svg) (a poker chip struck by a
+prohibition slash). Regenerate the PNGs Chrome uses with:
+
+```sh
+npm i sharp && node tools/make_icons.cjs   # -> icons/icon{16,32,48,128,512}.png
+```
