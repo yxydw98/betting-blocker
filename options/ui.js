@@ -3,6 +3,7 @@
 
 const DEFAULTS = {
   enabled: true,
+  blockAds: true,
   blockNavigation: true,
   aggressiveAllSites: false,
   hideVote: false,
@@ -15,6 +16,7 @@ const DEFAULTS = {
 
 const FIELDS = {
   enabled: "checkbox",
+  blockAds: "checkbox",
   blockNavigation: "checkbox",
   aggressiveAllSites: "checkbox",
   hideVote: "checkbox",
@@ -112,10 +114,12 @@ function toggleSite() {
 function showStats() {
   const el = $("stats");
   if (!el) return;
-  fetch(chrome.runtime.getURL("data/lists.json"))
-    .then((r) => r.json())
-    .then((l) => {
-      el.textContent = `Blocklist: ${l.domains.length} gambling domains, ${l.brands.length} brands, ${l.textKeywords.length} keyword phrases.`;
+  Promise.all([
+    fetch(chrome.runtime.getURL("data/lists.json")).then((r) => r.json()),
+    fetch(chrome.runtime.getURL("data/ad_domains.json")).then((r) => r.json()),
+  ])
+    .then(([l, a]) => {
+      el.textContent = `Blocklists: ${l.domains.length} gambling domains, ${l.brands.length} brands, ${l.textKeywords.length} betting phrases, ${a.domains.length} ad/tracker domains.`;
     })
     .catch(() => {});
 }

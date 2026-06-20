@@ -25,6 +25,7 @@
 
   const PACKS = globalThis.BETBLOCK_PACKS || { defaults: {}, sites: [] };
   const DEFAULTS = PACKS.defaults || {};
+  const ADS = globalThis.BETBLOCK_ADS || { cosmetic: [] };
   const HOST = location.hostname.replace(/^www\./, "");
 
   // Don't run on the extension's own pages.
@@ -35,18 +36,24 @@
   );
 
   // ---- instant structural hide (sync, before paint) ----------------------
-  const styleEls = [];
+  const styleEls = []; // { el, tag }
   function injectCss(selectors, tag) {
     if (!selectors || !selectors.length) return;
     const el = document.createElement("style");
     el.setAttribute("data-betblock", tag || "core");
     el.textContent = selectors.join(",\n") + "{display:none !important;}";
     (document.head || document.documentElement).appendChild(el);
-    styleEls.push(el);
+    styleEls.push({ el, tag: tag || "core" });
   }
-  // Apply the pack's core selectors immediately, assuming enabled; init() will
-  // tear them down if the extension turns out to be disabled.
-  if (pack) injectCss(pack.core, "core");
+  function removeTag(tag) {
+    for (const s of styleEls) if (s.tag === tag) s.el.remove();
+  }
+  // Apply selectors immediately, assuming the relevant toggles are on; init()
+  // tears down whichever layer turns out to be off (extension disabled, or
+  // ad-blocking off). "bet" = betting layer, "ads" = general ad layer.
+  if (pack) injectCss(pack.core, "bet");
+  if (pack) injectCss(pack.adCore, "ads");
+  injectCss(ADS.cosmetic, "ads"); // generic ad cosmetics, every site
 
   // ---- runtime state (filled by init) ------------------------------------
   let CFG = Object.assign({}, DEFAULTS);
@@ -297,9 +304,11 @@
     CFG = Object.assign({}, DEFAULTS, cfg);
 
     if (CFG.enabled === false) {
-      for (const s of styleEls) s.remove();
+      for (const s of styleEls) s.el.remove();
       return;
     }
+    // Ad-blocking off -> drop the instantly-injected ad CSS (betting stays).
+    if (CFG.blockAds === false) removeTag("ads");
 
     aggressive =
       CFG.aggressiveAllSites === true ||

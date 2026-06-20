@@ -1,13 +1,17 @@
-"""Generate the declarativeNetRequest rule files from data/lists.json.
+"""Generate the declarativeNetRequest rule files.
 
-Two static rulesets share the same bookmaker-domain list:
+Betting rulesets (from data/lists.json):
   - rules/embedded.json   : block bookmaker sub-resources (iframes/scripts/
                             images/xhr) on ANY site -> kills embedded betting
                             widgets and ads everywhere. Always enabled.
   - rules/navigation.json : redirect top-level navigations to a bookmaker
                             domain to the bundled blocked.html. Toggleable.
 
-Run after build_lists.py:
+Ad ruleset (from data/ad_domains.json, if present):
+  - rules/ads.json        : block ad/tracker sub-resources on ANY site.
+                            Toggleable via the blockAds setting.
+
+Run after build_lists.py / build_ad_lists.py:
     python tools/build_rules.py
 """
 from __future__ import annotations
@@ -59,6 +63,23 @@ def main() -> int:
 
     print(f"wrote rules/embedded.json + rules/navigation.json "
           f"({len(domains)} domains each)")
+
+    # --- ad ruleset (optional) ---------------------------------------------
+    ad_path = BASE / "data" / "ad_domains.json"
+    if ad_path.exists():
+        ad_domains = json.loads(ad_path.read_text(encoding="utf-8"))["domains"]
+        ads = [{
+            "id": 1,
+            "priority": 1,
+            "action": {"type": "block"},
+            "condition": {
+                "requestDomains": ad_domains,
+                "resourceTypes": SUBRESOURCE_TYPES,
+            },
+        }]
+        (RULES / "ads.json").write_text(json.dumps(ads, indent=2), encoding="utf-8")
+        print(f"wrote rules/ads.json ({len(ad_domains)} domains)")
+
     return 0
 
 

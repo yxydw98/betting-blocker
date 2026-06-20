@@ -21,21 +21,21 @@ const EXTRA_REDIRECT_ID = 1002;
 function getCfg() {
   return new Promise((resolve) => {
     chrome.storage.sync.get(
-      { blockNavigation: true, extraDomains: [] },
+      { blockNavigation: true, blockAds: true, extraDomains: [] },
       (v) => resolve(v)
     );
   });
 }
 
-async function syncNavigationRuleset(blockNavigation) {
+async function setRuleset(id, on) {
   try {
     await DNR.updateEnabledRulesets(
-      blockNavigation
-        ? { enableRulesetIds: ["navigation"], disableRulesetIds: [] }
-        : { enableRulesetIds: [], disableRulesetIds: ["navigation"] }
+      on
+        ? { enableRulesetIds: [id], disableRulesetIds: [] }
+        : { enableRulesetIds: [], disableRulesetIds: [id] }
     );
   } catch (e) {
-    console.warn("[betting-blocker] ruleset toggle failed:", e);
+    console.warn(`[betting-blocker] ruleset toggle (${id}) failed:`, e);
   }
 }
 
@@ -72,8 +72,9 @@ async function syncDynamicRules(extraDomains, blockNavigation) {
 }
 
 async function syncAll() {
-  const { blockNavigation, extraDomains } = await getCfg();
-  await syncNavigationRuleset(blockNavigation);
+  const { blockNavigation, blockAds, extraDomains } = await getCfg();
+  await setRuleset("navigation", blockNavigation);
+  await setRuleset("ads", blockAds);
   await syncDynamicRules(extraDomains, blockNavigation);
 }
 
@@ -83,6 +84,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   const seed = {};
   if (cur.enabled === undefined) seed.enabled = true;
   if (cur.blockNavigation === undefined) seed.blockNavigation = true;
+  if (cur.blockAds === undefined) seed.blockAds = true;
   if (cur.aggressiveHosts === undefined) seed.aggressiveHosts = ["hltv.org"];
   if (cur.hideForumLink === undefined) seed.hideForumLink = true;
   if (Object.keys(seed).length) await new Promise((r) => chrome.storage.sync.set(seed, r));
@@ -93,5 +95,5 @@ chrome.runtime.onStartup.addListener(syncAll);
 
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area !== "sync") return;
-  if (changes.blockNavigation || changes.extraDomains) syncAll();
+  if (changes.blockNavigation || changes.blockAds || changes.extraDomains) syncAll();
 });
