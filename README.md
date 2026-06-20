@@ -14,24 +14,26 @@ filter list: [`filters/betting.txt`](filters/betting.txt).
 **How to use it:**
 
 1. Install uBlock Origin and leave its default ad/privacy lists enabled.
-2. Add the betting list, either way:
-   - **Paste:** open uBO dashboard → **My filters** → paste the contents of
-     [`filters/betting.txt`](filters/betting.txt) → **Apply changes**; or
-   - **Subscribe:** uBO dashboard → **Filter lists** → **Import** → paste the
-     raw URL of `filters/betting.txt` (needs the repo to be public).
+2. Add the betting list — **subscribe** (auto-updates) is recommended:
+   - uBO dashboard → **Filter lists** → **Import…** → paste this URL → **Apply changes**:
+     ```
+     https://raw.githubusercontent.com/yxydw98/betting-blocker/main/filters/betting.txt
+     ```
+   - Or **paste** a one-time copy: uBO dashboard → **My filters** → paste the
+     contents of [`filters/betting.txt`](filters/betting.txt) → **Apply changes**.
 
 That's it — uBO blocks ads, this list blocks gambling domains (295) and hides
 HLTV's betting column (12 cosmetic rules). Regenerate the list after editing the
 data with `python tools/build_ublock_filters.py`.
 
-> The standalone MV3 extension below still exists and works, but with uBlock
-> Origin in the picture its **ad layer is redundant** — uBO does it better. Keep
-> the extension only if you want the betting features (popup, i18n, aggressive
-> mode) without running uBO; otherwise uBO + `betting.txt` is the cleaner setup.
-
 ---
 
-## Standalone extension (alternative)
+## Standalone extension (DEPRECATED)
+
+> **Deprecated.** uBlock Origin + [`filters/betting.txt`](filters/betting.txt)
+> above is the only supported path. This extension is kept for reference only —
+> its ad-blocking layer is redundant (uBO does it better) and it is no longer
+> maintained. Don't load it alongside uBO; use one or the other.
 
 A Chrome extension (Manifest V3) that actively blocks betting & gambling
 content — **and, optionally, all ads & trackers** — on **every website**, not
