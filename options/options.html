@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Betting Blocker — Settings</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { max-width: 680px; margin: 0 auto; padding: 32px 24px 60px;
+      font: 15px/1.55 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: #0e1116; color: #e6e6e6; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    .sub { color: #9aa4b2; margin: 0 0 26px; }
+    section { background: #161b22; border: 1px solid #222a35; border-radius: 12px;
+      padding: 18px 20px; margin-bottom: 18px; }
+    h2 { font-size: 15px; margin: 0 0 4px; }
+    .hint { color: #9aa4b2; font-size: 13px; margin: 0 0 14px; }
+    label.row { display: flex; gap: 11px; padding: 8px 0; cursor: pointer; align-items: flex-start; }
+    label.row input { margin-top: 3px; width: 16px; height: 16px; }
+    label.row .t { flex: 1; }
+    label.row .t small { display: block; color: #9aa4b2; }
+    textarea { width: 100%; box-sizing: border-box; min-height: 84px; resize: vertical;
+      font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+      background: #0e1116; color: #e6e6e6; border: 1px solid #2a3340; border-radius: 8px; padding: 9px; }
+    .field { margin-top: 12px; }
+    .field > label { font-weight: 600; display: block; margin-bottom: 5px; }
+    .bar { position: sticky; bottom: 0; display: flex; align-items: center; gap: 14px;
+      padding: 14px 0 0; }
+    button#save { font: inherit; cursor: pointer; padding: 9px 22px; border-radius: 8px;
+      border: 0; background: #1f6feb; color: #fff; font-weight: 600; }
+    #status { color: #7ee787; }
+    #stats { color: #9aa4b2; font-size: 13px; }
+    code { background: #0e1116; padding: 1px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>🚫 Betting Blocker</h1>
+  <p class="sub">Blocks betting &amp; gambling everywhere. Conservative on all sites; aggressive on the ones you opt in.</p>
+
+  <section>
+    <h2>General</h2>
+    <label class="row"><input type="checkbox" id="enabled" />
+      <span class="t">Extension enabled<small>Master switch.</small></span></label>
+    <label class="row"><input type="checkbox" id="blockNavigation" />
+      <span class="t">Block visiting betting sites<small>Redirect navigations to any blocklisted gambling domain to a "blocked" page. Off = only embedded betting widgets/ads are blocked.</small></span></label>
+    <label class="row"><input type="checkbox" id="debug" />
+      <span class="t">Debug logging<small>Log hidden-element counts to the page console.</small></span></label>
+  </section>
+
+  <section>
+    <h2>Aggressive mode</h2>
+    <p class="hint">Aggressive mode also removes betting links, brand widgets, and gambling keywords from the page — not just known domains. Network-level domain blocking happens on <em>all</em> sites regardless of this setting.</p>
+    <label class="row"><input type="checkbox" id="aggressiveAllSites" />
+      <span class="t">Aggressive mode on <strong>all sites</strong> <span style="color:#d29922">(beta)</span><small>Scrub betting from every site you visit. More thorough, but may hide legitimate content on sports/news sites. Leave off to scrub only the sites listed below.</small></span></label>
+    <div class="field" style="margin-top:14px">
+      <label>Aggressive on these sites only</label>
+      <p class="hint">Used when the "all sites" beta above is off. One host per line. (Add the current site quickly from the toolbar popup.)</p>
+      <textarea id="aggressiveHosts" spellcheck="false" placeholder="hltv.org"></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>HLTV options</h2>
+    <label class="row"><input type="checkbox" id="hideForumLink" />
+      <span class="t">Hide the betting forum link<small>Removes <code>/forums/betting</code> from the nav.</small></span></label>
+    <label class="row"><input type="checkbox" id="hideVote" />
+      <span class="t">Hide the "Pick a winner" vote<small>The free community win-probability vote. Off by default — it's not real-money betting.</small></span></label>
+  </section>
+
+  <section>
+    <h2>Custom blocklist</h2>
+    <div class="field">
+      <label>Extra domains to block (network-level, all sites)</label>
+      <p class="hint">One domain per line, e.g. <code>newbookie.com</code>. Subdomains included automatically.</p>
+      <textarea id="extraDomains" spellcheck="false" placeholder="example-bookie.com"></textarea>
+    </div>
+    <div class="field">
+      <label>Extra keyword phrases (aggressive sites)</label>
+      <p class="hint">One phrase per line. Matched in visible text on aggressive sites only.</p>
+      <textarea id="extraTextKeywords" spellcheck="false" placeholder="risk-free bet"></textarea>
+    </div>
+  </section>
+
+  <div class="bar">
+    <button id="save">Save</button>
+    <span id="status"></span>
+    <span id="stats"></span>
+  </div>
+
+  <script src="ui.js"></script>
+</body>
+</html>

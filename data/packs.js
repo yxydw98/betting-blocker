@@ -1,0 +1,62 @@
+/*
+ * Site packs + default config.
+ *
+ * A "pack" is a set of high-confidence STRUCTURAL selectors for one site,
+ * verified against that site's real markup. They are hidden instantly at
+ * document_start (no flash). This is the per-site layer; the generic engine
+ * (src/engine.js) runs everywhere and needs no pack.
+ *
+ * `core`     -> hidden whenever the extension is enabled on the site.
+ * `optional` -> hidden only when the matching config toggle is on.
+ *
+ * To support a new site, add an object to `sites` with its host suffix(es)
+ * and verified selectors. Nothing else needs to change.
+ */
+globalThis.BETBLOCK_PACKS = {
+  defaults: {
+    enabled: true,
+    blockNavigation: true,           // redirect navigations to bookmaker sites
+    aggressiveAllSites: false,       // BETA: full text/brand scrubbing on EVERY site
+    aggressiveHosts: ["hltv.org"],   // full text/brand scrubbing on these hosts
+    hideVote: false,                 // keep HLTV's free community "Pick a winner" vote
+    hideForumLink: true,             // hide the /forums/betting nav link
+    extraDomains: [],                // user-added domains to block (network-level)
+    extraTextKeywords: [],           // user-added phrases for aggressive text scan
+    debug: false,
+  },
+
+  sites: [
+    {
+      // Verified against hltv.org home / matches / results / events / match page.
+      match: ["hltv.org"],
+      core: [
+        // Top-nav "Betting" dropdown (the <ul> id is randomized per load).
+        'ul.nav-item:has(> a.nav-link[href^="/betting"])',
+        // Match-page betting block.
+        '.betting-section',
+        '#betting',
+        // "Analytics center / Find insights for your bet" card + its CTA.
+        '.matchpage-analytics-section',
+        'a.matchpage-analytics-center-container[href^="/betting/analytics"]',
+        // Per-fixture "Odds & prediction" button in match listings (anchor only).
+        'a.match-btn.match-analytics-btn[href^="/betting/analytics"]',
+        // /betting hub: Better Collective bookmaker comparison + bonus blocks.
+        '.category-operator-loop-wrapper',
+        '.bc-blocks-gutenberg.operator-loop-block.operator-loop',
+        '[class^="bonus-code-block--"]',
+        '[class*=" bonus-code-block--"]',
+        // Affiliate outbound links + bookmaker creatives.
+        'a[href^="https://bcwp.hltv.org"]',
+        'img[src*="assets-bcwp.hltv.org"]',
+        // Betting banner wrapper placed after the betting section.
+        '.matchpage-after-betting-desktop-mobile-new',
+      ],
+      optional: {
+        // Community win-probability vote: betting-ADJACENT but free / non-money.
+        vote: ['.pick-a-winner-wrapper'],
+        // Betting discussion forum link (community content, not a sportsbook CTA).
+        forumLink: ['a.dropdown-link[href="/forums/betting"]'],
+      },
+    },
+  ],
+};

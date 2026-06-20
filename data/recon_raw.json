@@ -1,0 +1,1150 @@
+{
+  "dom": {
+    "hooks": [
+      {
+        "selector": "ul.nav-item:has(> a.nav-link[href^=\"/betting\"])",
+        "where": "all pages (global nav)",
+        "kind": "nav",
+        "stable": true,
+        "note": "Top-nav Betting dropdown. The <ul> id (e.g. navItemyVsThiAx, navItemkIp_cbPR, navItemmvA-OYI7) is randomized per request -> match by structure/href, not id. The toggle anchor points to /betting/analytics. Confirmed."
+      },
+      {
+        "selector": "a.nav-link[href^=\"/betting\"]",
+        "where": "all pages (global nav)",
+        "kind": "nav",
+        "stable": true,
+        "note": "The Betting dropdown toggle link itself (href=/betting/analytics). Has data-nav-sub-menu-toggle-target to a randomized id."
+      },
+      {
+        "selector": "ul.dropdown-menu a.dropdown-link[href*=\"betting\"], a.dropdown-link[href*=\"apostas\"]",
+        "where": "all pages (global nav dropdown)",
+        "kind": "nav",
+        "stable": true,
+        "note": "Betting dropdown items: /en-us/betting, /en-gb/betting, /en-in/betting, /pt-br/apostas, /sv-se/betting, /da-dk/betting, /betting, /betting/money (Compare odds), /betting/analytics (Analytics). Match by href substring betting|apostas."
+      },
+      {
+        "selector": "a.dropdown-link[href=\"/forums/betting\"]",
+        "where": "all pages (global nav, Forums dropdown)",
+        "kind": "nav",
+        "stable": true,
+        "note": "Betting forum link inside the Forums dropdown menu. Separate from the Betting dropdown."
+      },
+      {
+        "selector": "div.betting-section, #betting",
+        "where": "match page",
+        "kind": "section",
+        "stable": true,
+        "note": "Confirmed. Container div with class betting-section and id=betting on individual match pages. Holds fantasy/betting promo content; inner tracked slot data-lnhnyipxec=\"FantasyGamesList\"."
+      },
+      {
+        "selector": "div.analytics-pick-a-winner",
+        "where": "match page",
+        "kind": "section",
+        "stable": true,
+        "note": "Betting-adjacent block immediately after div.betting-section. Contains the Analytics center CTA and the Pick-a-winner vote. Has data-content-block attribute."
+      },
+      {
+        "selector": "div.matchpage-analytics-section",
+        "where": "match page",
+        "kind": "widget",
+        "stable": true,
+        "note": "Analytics center card inside analytics-pick-a-winner. Headline 'Analytics center', subtext 'Find insights for your bet', links to /betting/analytics/{id}/..."
+      },
+      {
+        "selector": "a.matchpage-analytics-center-container[href^=\"/betting/analytics\"]",
+        "where": "match page",
+        "kind": "link",
+        "stable": true,
+        "note": "The clickable 'Go to analytics center' link to the betting analytics/odds page for this match."
+      },
+      {
+        "selector": "div.pick-a-winner-wrapper",
+        "where": "match page",
+        "kind": "widget",
+        "stable": true,
+        "note": "Community 'Pick a winner' prediction/vote widget (win-probability bars). Betting-adjacent; nested inside analytics-pick-a-winner. Hide separately if vote feature should remain."
+      },
+      {
+        "selector": "div.matchpage-after-betting-desktop-mobile-new",
+        "where": "match page",
+        "kind": "widget",
+        "stable": true,
+        "note": "Durable wrapper class for the ad/banner slot placed right after the betting section (data-trdswuppiz=\"BannerOnIndividualMatchPageDesktopMobileSalesNEW\"). Wrapper class is stable; the inner ad div class (BZ4Bl4KkTN) and /out2/ link are randomized ads."
+      },
+      {
+        "selector": "a.match-btn.match-analytics-btn[href^=\"/betting/analytics\"]",
+        "where": "matches page (also used in match listings/results widgets)",
+        "kind": "listing-column",
+        "stable": true,
+        "note": "Per-row 'Odds & prediction' button (bar-chart icon) on every match row in the /matches listing. title=\"Odds & prediction for match\", href=/betting/analytics/{id}/... One per fixture. Most numerous listing hook."
+      },
+      {
+        "selector": "div.match-fixtures-source [data-trdswuppiz=\"MATCHES_V3_FEATURED_PROVIDER\"]",
+        "where": "matches page",
+        "kind": "widget",
+        "stable": false,
+        "note": "Hidden impression-tracked slot for a featured bookmaker/provider in the matches header. data-trdswuppiz attribute name is randomized/hashed; the VALUE 'MATCHES_V3_FEATURED_PROVIDER' is the stable signal -> match by [data-imp-trk] with value containing PROVIDER. Lives inside div.match-fixtures-source (hidden)."
+      },
+      {
+        "selector": "div.category-operator-loop-wrapper",
+        "where": "betting page (/betting)",
+        "kind": "section",
+        "stable": true,
+        "note": "Top-level wrapper around the whole bookmaker comparison/ranking list on the betting hub page."
+      },
+      {
+        "selector": "div.bc-blocks-gutenberg.operator-loop-block.operator-loop",
+        "where": "betting page (/betting)",
+        "kind": "section",
+        "stable": true,
+        "note": "Container holding all bookmaker bonus rows (data-loop-items=24). 'bc' = Better Collective. Inside div.bcb-atts."
+      },
+      {
+        "selector": "div[class^=\"bonus-code-block--\"], div[class*=\" bonus-code-block--\"]",
+        "where": "betting page (/betting)",
+        "kind": "widget",
+        "stable": true,
+        "note": "One per bookmaker: bonus-code-block--ggbet-e-sports, --1xbet-e-sports, --bet365-e-sports, --stake-com-e-sports, --bc-game-e-sports, --betsio-com-e-sports, --zizobet-e-sports, --granawin-e-sports, etc. Class prefix 'bonus-code-block--' is durable; the bookmaker suffix varies."
+      },
+      {
+        "selector": "span.c-operator-name, img.c-operator-logo, span.c-bonus-headline, ul.c-usps, span.c-bonus-tc, div.compliance-wrapper",
+        "where": "betting page (/betting)",
+        "kind": "widget",
+        "stable": true,
+        "note": "Inner parts of each bonus block: operator name/logo, bonus headline (e.g. '100% up to 200 EUR'), USP bullets, T&C compliance text. All durable 'c-' prefixed classes from the Better Collective bonus component."
+      },
+      {
+        "selector": "a[href^=\"https://bcwp.hltv.org/goto/\"], a[href^=\"https://bcwp.hltv.org\"]",
+        "where": "betting page (/betting)",
+        "kind": "link",
+        "stable": true,
+        "note": "Outbound affiliate 'Claim Offer'/'Visit site' links to bookmakers via the bcwp.hltv.org redirector (e.g. /goto/bet365/E-sports, /goto/ggbet/E-sports). rel=nofollow. bcwp = Better Collective WordPress betting subdomain."
+      },
+      {
+        "selector": "a[href*=\"/betting\"], a[href*=\"/apostas\"]",
+        "where": "betting page (/betting) body + match/matches listings",
+        "kind": "link",
+        "stable": true,
+        "note": "All in-body betting links: /betting/analytics, /betting/sites, /betting/sites/esports, /betting/money, /betting/online-casinos (+/plinko-game, /aviator-game), /betting/responsible-gambling/* . Broad fallback selector by href substring betting|apostas."
+      },
+      {
+        "selector": "img[src*=\"assets-bcwp.hltv.org\"]",
+        "where": "betting page (/betting)",
+        "kind": "widget",
+        "stable": true,
+        "note": "Bookmaker logo/creative images served from assets-bcwp.hltv.org (Better Collective asset host), e.g. operator square logos in bonus blocks."
+      },
+      {
+        "selector": "script[src*=\"cadmus.script.ac\"]",
+        "where": "all pages (head)",
+        "kind": "iframe",
+        "stable": false,
+        "note": "Third-party 'ADM Smart Pixel - Better Collective' betting-affiliate tracking script (cadmus.script.ac). Path id (d23sa75evsxrsv) is account-specific. Block by domain. kind=iframe used loosely for external script."
+      },
+      {
+        "selector": "script[src*=\"htlbid.com\"]",
+        "where": "all pages (head)",
+        "kind": "iframe",
+        "stable": false,
+        "note": "Header-bidding ad loader (htlbid.com/v3/hltv.org/htlbid.js) that injects the betting banner ads (/out2/ creatives). Not exclusively betting, but it is the delivery vehicle for the bookmaker banner ads. Block at extension's discretion."
+      },
+      {
+        "selector": "div[data-imp-trk] a[href^=\"/out2/\"]",
+        "where": "matches/events/match pages",
+        "kind": "widget",
+        "stable": false,
+        "note": "Impression-tracked banner ad creatives (often bookmaker ads) inside randomized-class wrappers (e.g. BZ4Bl4KkTN) with randomized data-* attrs (data-gggsdghytj, data-trdswuppiz, data-hixuoqkfqi). These are ad placements not native betting markup; included because they frequently carry betting banners. Match by /out2/ href + data-imp-trk."
+      }
+    ],
+    "thirdPartyDomains": [
+      "bcwp.hltv.org",
+      "assets-bcwp.hltv.org",
+      "cadmus.script.ac",
+      "htlbid.com",
+      "googletagservices.com",
+      "googletagmanager.com"
+    ],
+    "pagesFetched": [
+      "https://www.hltv.org/results",
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/betting",
+      "https://www.hltv.org/events",
+      "https://www.hltv.org/matches/2395000/aurora-vs-furia-iem-cologne-major-2026"
+    ]
+  },
+  "lexicon": {
+    "brands": [
+      "Stake",
+      "Stake.com",
+      "1xBet",
+      "1XBET",
+      "GG.BET",
+      "GGBET",
+      "ggbet",
+      "Thunderpick",
+      "Rivalry",
+      "Betway",
+      "Pinnacle",
+      "Betano",
+      "Parimatch",
+      "22bet",
+      "20bet",
+      "Buff.bet",
+      "Buff88",
+      "CSGOEmpire",
+      "CSGO Empire",
+      "Cloudbet",
+      "Betclic",
+      "Betsson",
+      "Unibet",
+      "Bet365",
+      "Dafabet",
+      "Megapari",
+      "Melbet",
+      "Vulkanbet",
+      "Vulkan Bet",
+      "Loot.bet",
+      "Lootbet",
+      "Betboom",
+      "BetBoom",
+      "N1bet",
+      "N1 Casino",
+      "Roobet",
+      "Duelbits",
+      "Csgoroll",
+      "CSGORoll",
+      "Gamdom",
+      "Hellcase",
+      "Csgofast",
+      "CSGOFast",
+      "GGPredict",
+      "GG Predict",
+      "Bet-at-home",
+      "Sportsbet.io",
+      "1win",
+      "Mostbet",
+      "Pari",
+      "Leon",
+      "Olybet",
+      "Coolbet",
+      "Tonybet",
+      "Mr Green",
+      "888sport",
+      "888starz",
+      "BC.Game",
+      "BCGame",
+      "Rollbit",
+      "Bovada",
+      "BetOnline",
+      "GG.Bet",
+      "Esportsbet",
+      "Betinia",
+      "Librabet",
+      "Nitrobetting",
+      "Thunderbet",
+      "CSGORoll",
+      "Datdrop",
+      "Key-Drop",
+      "KeyDrop",
+      "Clash.gg",
+      "Farmskins",
+      "WTFSkins",
+      "Skin.club",
+      "Skinclub",
+      "Gamblr",
+      "Csgolive",
+      "Csgo500",
+      "500 Casino",
+      "Stake Casino",
+      "Vbet",
+      "VBET",
+      "Pin-up",
+      "Pinup",
+      "Marathonbet",
+      "Marathon Bet",
+      "Fonbet",
+      "GGBet",
+      "Betvictor",
+      "Bet Victor",
+      "Pixel.bet",
+      "Pixelbet",
+      "Luckbox",
+      "Midnite",
+      "Thunderpick.io",
+      "Vie.bet",
+      "Egamersworld",
+      "Arcanebet",
+      "Arcane Bet",
+      "Spin.bet",
+      "Betpawa",
+      "Hollywoodbets"
+    ],
+    "keywords": [
+      {
+        "term": "betting",
+        "risk": "med",
+        "scope": "any",
+        "note": "Core term. Can appear in editorial CS news (e.g. 'betting scandal', 'match-fixing/betting fraud') but strongly signals gambling sections, sponsor links and CTAs. Med risk as free text; treat hits in href/alt as high-confidence."
+      },
+      {
+        "term": "bet now",
+        "risk": "low",
+        "scope": "text",
+        "note": "CTA phrasing almost exclusively used by sportsbooks. Rare in editorial prose. Strong signal in button/anchor text."
+      },
+      {
+        "term": "place a bet",
+        "risk": "low",
+        "scope": "text",
+        "note": "CTA / instructional gambling phrase. Very rarely in CS news prose. High-confidence signal."
+      },
+      {
+        "term": "place your bet",
+        "risk": "low",
+        "scope": "text",
+        "note": "Direct gambling call-to-action. Near-zero false positives on a stats/news site."
+      },
+      {
+        "term": "odds",
+        "risk": "med",
+        "scope": "text",
+        "note": "Common in betting widgets but also appears in prose ('odds of winning', 'against all odds', 'tournament odds'). Med risk as free text; pair with brand/'betting' context to confirm."
+      },
+      {
+        "term": "bookmaker",
+        "risk": "low",
+        "scope": "any",
+        "note": "Almost always gambling-specific. Low risk anywhere including prose. Strong reliable signal."
+      },
+      {
+        "term": "bookmakers",
+        "risk": "low",
+        "scope": "any",
+        "note": "Plural of bookmaker. Equally low risk, gambling-specific."
+      },
+      {
+        "term": "wager",
+        "risk": "med",
+        "scope": "text",
+        "note": "Gambling-specific but occasionally figurative ('I'd wager that...'). Mostly safe; med risk in editorial prose, low in href/UI."
+      },
+      {
+        "term": "betslip",
+        "risk": "low",
+        "scope": "any",
+        "note": "Sportsbook UI element. One word; never appears in CS editorial. Low risk anywhere — high-confidence signal."
+      },
+      {
+        "term": "bet slip",
+        "risk": "low",
+        "scope": "any",
+        "note": "Two-word variant of betslip. Gambling-specific, low risk anywhere."
+      },
+      {
+        "term": "free bet",
+        "risk": "low",
+        "scope": "any",
+        "note": "Promotional gambling offer. Rare in non-betting context. Low risk."
+      },
+      {
+        "term": "free bets",
+        "risk": "low",
+        "scope": "any",
+        "note": "Plural promo term. Gambling-specific, low risk."
+      },
+      {
+        "term": "deposit bonus",
+        "risk": "low",
+        "scope": "any",
+        "note": "Casino/sportsbook promo phrase. Strong gambling signal, low false positives."
+      },
+      {
+        "term": "sign-up bonus",
+        "risk": "low",
+        "scope": "any",
+        "note": "Gambling/casino onboarding promo. Low risk; rare elsewhere on a CS site."
+      },
+      {
+        "term": "signup bonus",
+        "risk": "low",
+        "scope": "any",
+        "note": "No-hyphen variant of sign-up bonus. Gambling promo, low risk."
+      },
+      {
+        "term": "welcome bonus",
+        "risk": "low",
+        "scope": "any",
+        "note": "Standard casino/sportsbook onboarding offer. Low risk, strong signal."
+      },
+      {
+        "term": "cashout",
+        "risk": "med",
+        "scope": "any",
+        "note": "Betting feature (cash out an open bet). Also appears in skin-trading/payment prose. Med risk; href/UI scope safest."
+      },
+      {
+        "term": "cash out",
+        "risk": "med",
+        "scope": "any",
+        "note": "Two-word betting feature term. Can appear in general finance/withdrawal prose. Med risk; prefer attr/href."
+      },
+      {
+        "term": "accumulator",
+        "risk": "low",
+        "scope": "any",
+        "note": "Multi-leg bet (UK term). Gambling-specific; essentially never in CS news. Low risk anywhere."
+      },
+      {
+        "term": "parlay",
+        "risk": "low",
+        "scope": "any",
+        "note": "Multi-leg bet (US term). Gambling-specific, low risk anywhere."
+      },
+      {
+        "term": "moneyline",
+        "risk": "low",
+        "scope": "any",
+        "note": "US betting market type. Gambling-specific, low false positives."
+      },
+      {
+        "term": "handicap",
+        "risk": "high",
+        "scope": "href",
+        "note": "Betting market (Asian/European handicap) but also a common everyday word ('mechanical handicap', accessibility, map handicap). High risk as free text — restrict to href/attr to avoid prose hits."
+      },
+      {
+        "term": "over/under",
+        "risk": "med",
+        "scope": "any",
+        "note": "Totals betting market. Also used generically ('over/under 16 rounds'). Med risk; safer with betting context nearby."
+      },
+      {
+        "term": "predictions",
+        "risk": "high",
+        "scope": "href",
+        "note": "HLTV has legitimate community match-prediction features unrelated to money, plus editorial 'predictions'. High risk as text; only treat as betting signal in href to a bookmaker or 'betting-predictions' path."
+      },
+      {
+        "term": "betting tips",
+        "risk": "low",
+        "scope": "any",
+        "note": "Gambling content phrase. Low risk; strongly indicates a betting/affiliate page."
+      },
+      {
+        "term": "betting odds",
+        "risk": "low",
+        "scope": "any",
+        "note": "Compound disambiguates 'odds'. Gambling-specific, low risk."
+      },
+      {
+        "term": "betting sites",
+        "risk": "low",
+        "scope": "any",
+        "note": "Affiliate/listicle phrasing for bookmaker directories. Low risk, strong signal."
+      },
+      {
+        "term": "where to bet",
+        "risk": "low",
+        "scope": "any",
+        "note": "Affiliate CTA phrasing. Gambling-specific, low risk."
+      },
+      {
+        "term": "best odds",
+        "risk": "low",
+        "scope": "any",
+        "note": "Comparison/affiliate phrase. Disambiguated compound of 'odds'; low risk."
+      },
+      {
+        "term": "apostas",
+        "risk": "med",
+        "scope": "any",
+        "note": "Portuguese for 'bets/betting'. Strong PT-market signal (Betano/Betsson PT pages). Med risk only because it can appear in Brazilian editorial about betting controversies; mostly reliable."
+      },
+      {
+        "term": "casa de apostas",
+        "risk": "low",
+        "scope": "any",
+        "note": "Portuguese for 'bookmaker/betting house'. Gambling-specific, low risk."
+      },
+      {
+        "term": "wetten",
+        "risk": "med",
+        "scope": "any",
+        "note": "German for 'bets/to bet'. Strong DE-market signal. Med risk as it can be a verb in prose; reliable in href/UI."
+      },
+      {
+        "term": "sportwetten",
+        "risk": "low",
+        "scope": "any",
+        "note": "German 'sports betting'. Compound, gambling-specific, low risk."
+      },
+      {
+        "term": "gambling",
+        "risk": "med",
+        "scope": "any",
+        "note": "Direct term but appears in editorial (responsible-gambling notices, 'gambling addiction', regulatory news). Med risk as text; high-confidence in href/affiliate paths."
+      },
+      {
+        "term": "casino",
+        "risk": "high",
+        "scope": "href",
+        "note": "Gambling term but also appears in brand/event names and map/venue prose ('Casino map', sponsor names like 'N1 Casino', 'Stake Casino'). High risk as free text — prefer href/attr scope."
+      },
+      {
+        "term": "promo code",
+        "risk": "med",
+        "scope": "any",
+        "note": "Affiliate/casino bonus phrasing, but also legit e-commerce/merch discounts. Med risk; combine with brand for confidence."
+      },
+      {
+        "term": "bonus code",
+        "risk": "med",
+        "scope": "any",
+        "note": "Casino/sportsbook offer phrase; can also be generic merch/promo. Med risk; brand-adjacency raises confidence."
+      },
+      {
+        "term": "stake",
+        "risk": "high",
+        "scope": "href",
+        "note": "Both the Stake.com brand AND a betting amount AND ordinary prose ('high stakes', 'Stake Ranked' events, 'at stake'). High risk as free text — match only in href to stake.com/affiliate domains or attr."
+      },
+      {
+        "term": "payout",
+        "risk": "high",
+        "scope": "href",
+        "note": "Betting/casino term but also prize-pool, skin-trading and salary prose ('tournament payout', 'prize payout'). High risk as free text — restrict to href/attr near a bookmaker."
+      },
+      {
+        "term": "bet",
+        "risk": "high",
+        "scope": "href",
+        "note": "Substring of many non-gambling words ('Tibet', 'alphabet', 'betray') and ordinary verb usage. High risk as free text — only treat as signal in href/attr or as a whole-word CTA, ideally anchored to a bookmaker domain."
+      },
+      {
+        "term": "bonus",
+        "risk": "high",
+        "scope": "href",
+        "note": "Casino promo term but extremely common generically ('bonus round', 'bonus content', 'XP bonus' in games). High risk as free text — prefer href/attr scope, brand-adjacent."
+      },
+      {
+        "term": "jackpot",
+        "risk": "med",
+        "scope": "any",
+        "note": "Casino/skin-gambling term, but also figurative ('hit the jackpot') and game-mode names. Med risk; href scope safest."
+      },
+      {
+        "term": "roulette",
+        "risk": "med",
+        "scope": "any",
+        "note": "Casino game and skin-gambling mode (CSGO roulette sites). Med risk; can appear in unrelated prose but strongly gambling-leaning on a CS site."
+      },
+      {
+        "term": "wagering requirement",
+        "risk": "low",
+        "scope": "any",
+        "note": "Casino bonus T&C phrase. Gambling-specific, low risk anywhere."
+      },
+      {
+        "term": "odds boost",
+        "risk": "low",
+        "scope": "any",
+        "note": "Sportsbook promotion. Disambiguated compound; low risk."
+      },
+      {
+        "term": "live betting",
+        "risk": "low",
+        "scope": "any",
+        "note": "In-play sportsbook product. Gambling-specific, low risk."
+      },
+      {
+        "term": "in-play",
+        "risk": "med",
+        "scope": "any",
+        "note": "Live-betting term but can describe gameplay generically. Med risk; href/betting context safest."
+      },
+      {
+        "term": "responsible gambling",
+        "risk": "low",
+        "scope": "any",
+        "note": "Mandatory footer/disclaimer on betting pages. Low risk and a near-certain indicator that gambling content/sponsorship is present on the page."
+      },
+      {
+        "term": "18+",
+        "risk": "med",
+        "scope": "any",
+        "note": "Age-gate badge accompanying gambling ads/sponsors. Med risk (also appears for mature content generally); strong when near a bookmaker brand or 'begambleaware'."
+      },
+      {
+        "term": "begambleaware",
+        "risk": "low",
+        "scope": "any",
+        "note": "UK responsible-gambling org linked in betting ad footers (begambleaware.org). Low risk; certain gambling indicator."
+      },
+      {
+        "term": "gamble responsibly",
+        "risk": "low",
+        "scope": "any",
+        "note": "Standard betting-ad disclaimer. Low risk, certain gambling indicator."
+      },
+      {
+        "term": "T&Cs apply",
+        "risk": "med",
+        "scope": "any",
+        "note": "Often accompanies bonus/promo offers but also generic. Med risk; strong when paired with 'bonus'/'free bet'."
+      },
+      {
+        "term": "claim bonus",
+        "risk": "low",
+        "scope": "any",
+        "note": "Casino/sportsbook CTA. Gambling-specific, low risk."
+      },
+      {
+        "term": "bet builder",
+        "risk": "low",
+        "scope": "any",
+        "note": "Sportsbook same-game-parlay product. Gambling-specific, low risk."
+      },
+      {
+        "term": "outright",
+        "risk": "med",
+        "scope": "any",
+        "note": "Betting market (outright winner). Also generic adjective/adverb. Med risk; betting context or href safest."
+      },
+      {
+        "term": "first deposit",
+        "risk": "med",
+        "scope": "any",
+        "note": "Casino onboarding bonus phrase. Med risk; strong when paired with 'bonus'/'match'."
+      },
+      {
+        "term": "match bonus",
+        "risk": "med",
+        "scope": "any",
+        "note": "Deposit-match casino promo, but 'match' collides heavily with CS match context. Med risk — only a signal alongside 'deposit'/'bonus'/brand."
+      },
+      {
+        "term": "skin gambling",
+        "risk": "low",
+        "scope": "any",
+        "note": "CS-specific gambling category (case/skin betting). Low risk, strong signal."
+      },
+      {
+        "term": "case opening",
+        "risk": "med",
+        "scope": "any",
+        "note": "CS skin-gambling mechanic offered by case sites (Hellcase/Key-Drop). Also legitimate in-game feature. Med risk; href to a case-site domain confirms."
+      },
+      {
+        "term": "coinflip",
+        "risk": "med",
+        "scope": "any",
+        "note": "Skin-gambling game mode. Also figurative ('it's a coinflip'). Med risk; gambling-leaning on a CS site, href safest."
+      },
+      {
+        "term": "crash game",
+        "risk": "low",
+        "scope": "any",
+        "note": "Casino 'crash' product common on CS gambling sites. Low risk, gambling-specific."
+      },
+      {
+        "term": "deposit",
+        "risk": "high",
+        "scope": "href",
+        "note": "Gambling funding action but also generic finance/account term. High risk as free text — restrict to href/attr near a bookmaker/casino."
+      },
+      {
+        "term": "withdrawal",
+        "risk": "high",
+        "scope": "href",
+        "note": "Casino cashier term but also generic ('team withdrawal from event', account withdrawal). High risk as free text — prefer href/attr scope."
+      },
+      {
+        "term": "esports betting",
+        "risk": "low",
+        "scope": "any",
+        "note": "Explicit category phrase. Gambling-specific, low risk, very strong signal."
+      },
+      {
+        "term": "cs2 betting",
+        "risk": "low",
+        "scope": "any",
+        "note": "Game-specific betting phrase used by affiliates/bookmakers. Low risk, strong signal."
+      },
+      {
+        "term": "csgo betting",
+        "risk": "low",
+        "scope": "any",
+        "note": "Legacy game-specific betting phrase. Low risk, strong signal."
+      },
+      {
+        "term": "value bet",
+        "risk": "low",
+        "scope": "any",
+        "note": "Betting-tips jargon. Gambling-specific, low risk."
+      },
+      {
+        "term": "matched betting",
+        "risk": "low",
+        "scope": "any",
+        "note": "Betting-arbitrage technique phrase. Gambling-specific, low risk."
+      },
+      {
+        "term": "spread",
+        "risk": "high",
+        "scope": "href",
+        "note": "Point-spread betting market but extremely common generic word ('spread of the meta', 'spread out'). High risk as free text — only a signal in href/attr with betting context."
+      },
+      {
+        "term": "totals",
+        "risk": "high",
+        "scope": "href",
+        "note": "Totals betting market but also a plain word ('round totals', stats totals on a stats site). High risk as free text — restrict to href/betting-widget scope."
+      }
+    ]
+  },
+  "domains": {
+    "domains": [
+      "stake.com",
+      "stake.bet",
+      "stake.games",
+      "stake.us",
+      "stake.ac",
+      "1xbet.com",
+      "1xbet.bet",
+      "1x-bet.com",
+      "1xlite.com",
+      "1xstavka.ru",
+      "gg.bet",
+      "ggbet.com",
+      "ggbet.co",
+      "thunderpick.io",
+      "thunderpick.com",
+      "rivalry.com",
+      "rivalry.gg",
+      "betway.com",
+      "pinnacle.com",
+      "pinnacle.bet",
+      "betano.com",
+      "parimatch.com",
+      "parimatch.co.uk",
+      "22bet.com",
+      "buff.bet",
+      "csgoempire.com",
+      "csgoempire.gg",
+      "cloudbet.com",
+      "betclic.com",
+      "betsson.com",
+      "unibet.com",
+      "bet365.com",
+      "megapari.com",
+      "melbet.com",
+      "melbet.org",
+      "roobet.com",
+      "duelbits.com",
+      "csgoroll.com",
+      "gamdom.com",
+      "hellcase.com",
+      "loot.bet",
+      "lootbet.com",
+      "betboom.com",
+      "betboom.ru",
+      "rainbet.com",
+      "betwinner.com",
+      "20bet.com",
+      "n1bet.com",
+      "betpawa.com",
+      "fonbet.com",
+      "fonbet.ru",
+      "sportsbet.io",
+      "rollbit.com",
+      "betpanda.io",
+      "ggwp.bet",
+      "leon.bet",
+      "leonbet.com",
+      "ggbet.eu",
+      "vbet.com",
+      "888sport.com",
+      "888casino.com",
+      "888.com",
+      "williamhill.com",
+      "ladbrokes.com",
+      "coral.co.uk",
+      "skybet.com",
+      "paddypower.com",
+      "betfair.com",
+      "betvictor.com",
+      "bwin.com",
+      "betfred.com",
+      "tipico.com",
+      "marathonbet.com",
+      "1win.com",
+      "1win.bet",
+      "mostbet.com",
+      "linebet.com",
+      "betobet.com",
+      "cbet.gg",
+      "cbet.com",
+      "betplay.io",
+      "bcgame.com",
+      "bc.game",
+      "vave.com",
+      "metaspins.com",
+      "winnerz.com",
+      "luckyblock.com",
+      "tg.casino",
+      "instantcasino.com",
+      "coincasino.io",
+      "rainbet.io",
+      "shuffle.com",
+      "chips.gg",
+      "jackbit.com",
+      "megaslot.com",
+      "20bet.io",
+      "betplays.com",
+      "weltbet.com",
+      "fortunejack.com",
+      "trustdice.win",
+      "wazamba.com",
+      "rabona.com",
+      "1bet.com",
+      "betvili.com",
+      "nitrobetting.eu",
+      "betonline.ag",
+      "bovada.lv",
+      "rajabets.com",
+      "betano.pt",
+      "betano.de",
+      "betano.br",
+      "betano.ro",
+      "lvbet.com",
+      "ggbet.ru",
+      "ivibet.com",
+      "32red.com",
+      "mr.green",
+      "mrgreen.com",
+      "casumo.com",
+      "leovegas.com",
+      "dafabet.com",
+      "10bet.com",
+      "12bet.com",
+      "188bet.com",
+      "w88.com",
+      "fun88.com",
+      "fb88.com",
+      "sbobet.com",
+      "188loto.com",
+      "k8.com",
+      "stake7.com",
+      "vulkanbet.com",
+      "vulkan.bet",
+      "ninecasino.com",
+      "playzilla.com",
+      "spinaway.com",
+      "alphabet.bet",
+      "f1.bet",
+      "midnight.win",
+      "pledoo.com",
+      "rocketplay.com",
+      "bdmbet.com",
+      "spinanga.com",
+      "5gringos.com",
+      "wildtokyo.com",
+      "ricky.casino",
+      "rickycasino.com",
+      "joycasino.com",
+      "loki.casino",
+      "betchain.com",
+      "mbitcasino.com",
+      "bitstarz.com",
+      "7bitcasino.com",
+      "cryptoleo.com",
+      "tedbet.com",
+      "vipclub.win",
+      "winz.io",
+      "betfury.com",
+      "betfury.io",
+      "bets.io",
+      "sportbet.one",
+      "thunderbet.io",
+      "csgoempire.io",
+      "csgo500.com",
+      "csgofast.com",
+      "csgofast.gg",
+      "csgoroll.gg",
+      "rain.gg",
+      "clash.gg",
+      "key-drop.com",
+      "keydrop.com",
+      "datdrop.com",
+      "farmskins.com",
+      "skin.club",
+      "skinclub.com",
+      "wtfskins.com",
+      "bandit.camp",
+      "banditcamp.com",
+      "ggdrop.com",
+      "csgoluck.com",
+      "daddyskins.com",
+      "rustclash.com",
+      "rustmagic.com",
+      "skinsmonkey.com",
+      "cases.gg",
+      "gemskins.com",
+      "skinwin.gg",
+      "csgobig.com",
+      "csgolive.com",
+      "csgowin.com",
+      "hypedrop.com",
+      "lootmarket.com",
+      "csgoatse.com",
+      "duelbits.gg",
+      "csgowild.com",
+      "csgopolygon.com",
+      "csgocrash.com",
+      "skinhub.com",
+      "skinrave.gg",
+      "skinflow.gg",
+      "swapd.gg",
+      "csgo250.com",
+      "drakemall.com",
+      "drakelounge.com",
+      "g4skins.com",
+      "g4.bet",
+      "luxdrop.com",
+      "rolletto.com",
+      "snakia.com",
+      "csgoskins.gg",
+      "upgrader.com",
+      "trade.skin",
+      "skinsgift.com",
+      "earnskins.com",
+      "freecsgoskins.com",
+      "tradeit.gg",
+      "buff.market",
+      "rollbit.io",
+      "vipclub.casino",
+      "betkings.com",
+      "spin.bet",
+      "spinbet.com",
+      "betbeast.com",
+      "hltv.org",
+      "futbin.com",
+      "vegasinsider.com",
+      "bettingexpert.com",
+      "aceodds.com",
+      "actionnetwork.com",
+      "wettbasis.com",
+      "betarades.gr",
+      "yardbarker.com",
+      "oddschecker.com",
+      "covers.com",
+      "scores.com",
+      "thelines.com",
+      "playmakerhq.com",
+      "bolavip.com",
+      "telecomasia.net",
+      "wsn.com",
+      "scommessesportive.com",
+      "thepunterspage.com",
+      "gambling.com",
+      "casino.org",
+      "askgamblers.com",
+      "smartbettingguide.com",
+      "esportsbettingreport.com",
+      "luckbox.com",
+      "midnite.com",
+      "esports.net",
+      "egamersworld.com",
+      "tips.gg",
+      "betbhai.com",
+      "indiabet.com",
+      "esportsbull.com",
+      "rajbet.com",
+      "fairplay.com",
+      "10cric.com",
+      "parimatch.in",
+      "satbet.com",
+      "crickex.com",
+      "1xbet.kz",
+      "1xbet.ng",
+      "1xbet.com.gh",
+      "melbet.ng",
+      "22bet.ng",
+      "betwinner.ng",
+      "sportybet.com",
+      "betking.com",
+      "msport.com",
+      "premierbet.com",
+      "betpawa.ng",
+      "helabet.com",
+      "paripesa.com",
+      "888starz.bet",
+      "megapari.bet",
+      "pin-up.casino",
+      "pinup.com",
+      "pin-up.bet",
+      "verde.casino",
+      "boomerang.bet",
+      "amunra.com",
+      "wildz.com",
+      "ninewin.com",
+      "yoju.casino",
+      "stake.bz",
+      "stake.pet",
+      "stake.mba",
+      "stake1001.com",
+      "stake1002.com",
+      "stake.krd",
+      "csgoempire.gg.com",
+      "kewlbet.com",
+      "thunderpick.com.br"
+    ]
+  },
+  "audit": {
+    "overblockRisks": [
+      {
+        "signal": "keyword \"bet\" (href scope)",
+        "why": "Substring matching would catch 'Tibet', 'alphabet', 'betray', 'better', 'BetBoom' inside non-betting URLs, plus the verb 'bet' in editorial. Even scoped to href, a naive substring test hits /results?event=...alphabet... style slugs and team/event names. As free text it is catastrophic.",
+        "mitigation": "Match only as a whole word (\\bbet\\b) AND only inside href/src/attr, AND require the href host to be a known bookmaker/affiliate domain (bcwp.hltv.org, stake.com, etc.) or the path to start with /betting. Never match 'bet' as a bare substring anywhere."
+      },
+      {
+        "signal": "keyword \"stake\" (href scope) + brand \"Stake\"/\"Stake.com\"",
+        "why": "HLTV runs events literally named 'Stake Ranked' and prose like 'at stake', 'high stakes', 'stakes were high'. Brand-matching 'Stake' in an event/tournament name would hide entire legitimate match rows and event pages.",
+        "mitigation": "Only treat 'stake' as a signal when href points to stake.com or a bcwp affiliate redirect. Brand 'Stake' in visible text (event names, prose) must NEVER hide a match/row/article — at most flag an attached odds/affiliate widget."
+      },
+      {
+        "signal": "keyword \"odds\" (text scope, med)",
+        "why": "'odds of winning', 'against all odds', 'the odds favor', 'tournament odds' appear in editorial and analysis prose. Hiding text nodes containing 'odds' would gut articles.",
+        "mitigation": "Do not hide free text on 'odds' alone. Only act when 'odds' is inside a betting widget container (div.betting-section, matchpage-analytics-section) or paired with a bookmaker brand/href in the same block. Prefer the compound forms 'betting odds'/'best odds'/'odds boost'."
+      },
+      {
+        "signal": "keyword \"predictions\" (href scope, high)",
+        "why": "HLTV has a legitimate community 'Pick a winner' prediction feature and editorial 'predictions' articles unrelated to money. Match-prediction is a core non-betting feature.",
+        "mitigation": "Only treat as betting when href contains /betting/ or a bookmaker domain. The pick-a-winner-wrapper must be hidden ONLY by its own dedicated selector if the user opts to remove the vote, never via the 'predictions' keyword on text."
+      },
+      {
+        "signal": "keyword \"casino\" (href scope, high)",
+        "why": "Appears in brand/event/sponsor names ('N1 Casino', 'Stake Casino') and could be a map/venue reference in prose. As free text it hides sponsor mentions inside legit articles.",
+        "mitigation": "Restrict strictly to href/src containing /casino or a casino domain. Never match 'casino' in visible text or in event-name attributes that gate a whole match row."
+      },
+      {
+        "signal": "keyword \"handicap\" (href scope, high)",
+        "why": "Common everyday/accessibility word and a generic gameplay term ('map handicap'), not just the Asian-handicap betting market.",
+        "mitigation": "href/attr only, and only within a betting widget or bookmaker-domain link. Never match in prose."
+      },
+      {
+        "signal": "keywords \"spread\", \"totals\", \"payout\", \"deposit\", \"withdrawal\", \"bonus\" (href scope, high)",
+        "why": "All are extremely common generic words on a stats/news site: 'spread of the meta', 'round totals', stats 'totals' columns, 'tournament payout/prize payout', account 'deposit', 'team withdrawal from event', 'XP bonus'/'bonus round'/'bonus content'. Any text-scope matching destroys stats tables and editorial.",
+        "mitigation": "href/attr only AND require bookmaker/casino domain or /betting path adjacency. Explicitly exclude stats-table cells and 'withdrawal' near event/roster context. Never hide a stats column header or row on these terms."
+      },
+      {
+        "signal": "keyword \"betting\" (med, any)",
+        "why": "Core betting term but appears in legitimate journalism: 'betting scandal', 'match-fixing/betting fraud ban', 'gambling sponsorship controversy'. Hiding any element containing 'betting' would remove news articles and forum threads that are legit content to keep.",
+        "mitigation": "In free text, do not hide article/forum body or headlines on 'betting' alone. Treat as high-confidence only in href/alt/title or inside known betting containers. News/forum article bodies are a protected zone."
+      },
+      {
+        "signal": "keyword \"apostas\" / \"wetten\" (med, any)",
+        "why": "Portuguese/German for betting; can appear in localized editorial about betting controversies, not only on bookmaker pages.",
+        "mitigation": "Same as 'betting' — protect article/forum bodies; act confidently only in href (/apostas path, bookmaker domain) or dedicated betting containers."
+      },
+      {
+        "signal": "keyword \"18+\" (med, any)",
+        "why": "Age-gate also used for mature/violent content generally, not exclusively gambling.",
+        "mitigation": "Only a signal when adjacent to a bookmaker brand or 'begambleaware'/'gamble responsibly' in the same block. Never hide on '18+' alone."
+      },
+      {
+        "signal": "keyword \"in-play\" (med, any)",
+        "why": "Describes live gameplay generically ('in-play stats', 'in-play clutch') as well as live betting.",
+        "mitigation": "Require betting context (betting container or bookmaker href) in the same block; never hide prose on 'in-play' alone."
+      },
+      {
+        "signal": "DOM hook a[href*=\"/betting\"], a[href*=\"/apostas\"] (broad fallback)",
+        "why": "Substring '/betting' also matches '/forums/betting' (a community forum, arguably legit discussion) and could match any future path containing the substring. Hiding the link element is fine, but if a script climbs to a parent row/article it could hide legit listings.",
+        "mitigation": "Hide only the anchor element itself (and its immediate icon/label), never an ancestor article/match row. Treat /forums/betting as a forum link the user may want to keep — make it a separate toggle."
+      },
+      {
+        "signal": "DOM hook div[data-imp-trk] a[href^=\"/out2/\"] and htlbid.com/out2 creatives",
+        "why": "/out2/ is a generic outbound-ad redirector carrying ANY banner ad, not only bookmaker ads. Hiding all of them overblocks non-betting advertisers (hardware, events, merch).",
+        "mitigation": "Only hide /out2/ creatives whose alt/title/nearby text or destination matches a bookmaker brand or betting keyword. Otherwise leave to a general ad-blocker, not the betting filter."
+      },
+      {
+        "signal": "Match-listing row hook a.match-btn.match-analytics-btn[href^=\"/betting/analytics\"]",
+        "why": "This 'Odds & prediction' button sits inside an otherwise-legitimate match row. A script that hides the row instead of the button removes a real fixture.",
+        "mitigation": "Hide ONLY the button/column, never the parent match row. The fixture, teams, time, and result must remain visible."
+      },
+      {
+        "signal": "Brand list applied to visible text (Stake, Rivalry, Betway, Pinnacle, Buff, 1win, Pari, Leon, etc.)",
+        "why": "Many brands are ordinary words or event/team sponsors: 'Rivalry' (also a generic noun and an event organizer), 'Pinnacle' (generic), 'Buff' (game-balance term + Buff163 skin marketplace), '1win'/'Pari'/'Leon'/'Pixel.bet'/'Spin.bet' collide with names/words. Event names like 'Thunderpick World Championship', 'Betboom Dacha', 'Rivalry Cup' are LEGIT tournaments.",
+        "mitigation": "Brand-in-event-name or brand-in-prose must NOT hide the match, article, or row — only an attached odds/affiliate widget or a link whose href is the bookmaker domain. Restrict bare brand text-matching to known betting containers; prefer matching brands in href/src."
+      }
+    ],
+    "safeKeywordsTextScope": [
+      "betslip",
+      "bet slip",
+      "place a bet",
+      "place your bet",
+      "bet now",
+      "free bet",
+      "free bets",
+      "deposit bonus",
+      "welcome bonus",
+      "sign-up bonus",
+      "signup bonus",
+      "claim bonus",
+      "wagering requirement",
+      "responsible gambling",
+      "begambleaware",
+      "gamble responsibly",
+      "esports betting",
+      "cs2 betting",
+      "csgo betting",
+      "skin gambling",
+      "betting tips",
+      "betting odds",
+      "betting sites",
+      "best odds",
+      "odds boost",
+      "live betting",
+      "value bet",
+      "matched betting",
+      "accumulator",
+      "parlay",
+      "moneyline",
+      "bet builder",
+      "crash game",
+      "casa de apostas",
+      "sportwetten",
+      "where to bet"
+    ],
+    "linkOnlyKeywords": [
+      "bet",
+      "stake",
+      "bonus",
+      "deposit",
+      "withdrawal",
+      "payout",
+      "casino",
+      "handicap",
+      "spread",
+      "totals",
+      "predictions",
+      "cashout",
+      "cash out",
+      "outright"
+    ],
+    "recommendations": [
+      "Establish protected zones the content script must NEVER hide via keyword/brand matching: <article> bodies, news/editorial text, forum post bodies and thread titles, stats tables (and their column headers/cells), and match-listing row metadata (team names, scores, times, event names). Only dedicated betting-container selectors and bookmaker-domain href matches may act inside these zones, and even then only on the betting sub-element.",
+      "Two-tier confidence: (a) STRUCTURAL hooks (div.betting-section, #betting, div.analytics-pick-a-winner, matchpage-analytics-section, a.matchpage-analytics-center-container, category-operator-loop-wrapper, bonus-code-block--*, bcwp.hltv.org links, assets-bcwp.hltv.org images) are high-confidence — hide directly. (b) KEYWORD/BRAND hits are low-confidence — only act when inside a structural betting container OR when the keyword is in an href/src pointing to a bookmaker/affiliate domain or /betting|/apostas path.",
+      "Match-listing rows: hide ONLY the per-row 'Odds & prediction' button (a.match-btn.match-analytics-btn) — never climb to or hide the enclosing match row/fixture. The match, teams, time, and result stay visible.",
+      "Never hide an ancestor of a betting link. For a[href*=\"/betting\"]/a[href*=\"/apostas\"] and /out2/ creatives, hide the anchor (and its inline icon/label) only; do not walk up to a row, card, or article container.",
+      "Brand handling: a bookmaker brand appearing in an event/tournament name (e.g. 'Stake Ranked', 'Thunderpick World Championship', 'Betboom Dacha', 'Rivalry Cup') must NOT hide the match, row, results entry, or article. Only hide an odds/affiliate widget or a link whose href resolves to the bookmaker's domain. Maintain an event-name allowlist context: if the brand string is inside a link to /events/ or /matches/ it is a tournament reference, keep it.",
+      "Treat all high-risk keywords (bet, stake, bonus, deposit, withdrawal, payout, casino, handicap, spread, totals, predictions) as href/src/attr-only AND require either a bookmaker/affiliate host (bcwp.hltv.org, assets-bcwp.hltv.org, stake.com, ggbet, 1xbet, bet365, etc.) or a /betting|/apostas path segment. Combine 'bet' with whole-word boundaries (\\bbet\\b) even in attributes.",
+      "'odds' alone is never sufficient: require it to co-occur with a bookmaker brand/href or sit inside a betting container. Prefer the disambiguated compounds 'betting odds', 'best odds', 'odds boost'.",
+      "Protect journalism: any element identified as a news article, blog, or forum thread (URL paths /news/, /blog/, /forums/) is exempt from keyword/brand hiding entirely; betting discussion as content is legitimate. Only inline injected affiliate widgets/ads within those pages may be removed via structural hooks.",
+      "Keep /forums/betting (the betting forum link) as a SEPARATE, optional toggle distinct from the gambling-promo blocking, since it is community discussion rather than a sportsbook CTA.",
+      "For impression/ad slots that are randomized (data-imp-trk, /out2/ creatives, MATCHES_V3_FEATURED_PROVIDER, htlbid.com): only remove when the creative's alt/title/destination matches a bookmaker brand or betting keyword. Do not blanket-hide all ads under the betting filter — that overreaches into non-betting advertisers.",
+      "Localized terms (apostas, wetten, casa de apostas, sportwetten): apply the same href/container scoping. 'apostas'/'wetten' as bare verbs in localized editorial must not hide article text.",
+      "Pick-a-winner / community vote (div.pick-a-winner-wrapper) is betting-adjacent but a non-money community feature — hide it only behind its own opt-in toggle, never as a side effect of betting-section removal, so users who want the free vote keep it."
+    ]
+  }
+}

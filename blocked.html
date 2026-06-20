@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blocked — Betting Blocker</title>
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: grid; place-items: center;
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: #0e1116; color: #e6e6e6;
+    }
+    .card {
+      max-width: 460px; padding: 40px 36px; text-align: center;
+      background: #161b22; border: 1px solid #283041; border-radius: 14px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.4);
+    }
+    .mark { font-size: 40px; line-height: 1; margin-bottom: 14px; }
+    h1 { font-size: 20px; margin: 0 0 8px; }
+    p { margin: 0 0 18px; color: #9aa4b2; }
+    button {
+      font: inherit; cursor: pointer; padding: 9px 18px; border-radius: 8px;
+      border: 1px solid #2f3a4d; background: #1f6feb; color: #fff;
+    }
+    button.secondary { background: transparent; color: #9aa4b2; }
+    .row { display: flex; gap: 10px; justify-content: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="mark">🚫</div>
+    <h1>Betting site blocked</h1>
+    <p>Betting Blocker stopped this page from loading because it matched a gambling / bookmaker domain.</p>
+    <div class="row">
+      <button id="back">Go back</button>
+      <button class="secondary" id="opts">Settings</button>
+    </div>
+  </div>
+  <script src="blocked.js"></script>
+</body>
+</html>

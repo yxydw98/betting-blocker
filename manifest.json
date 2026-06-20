@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Betting Blocker",
+  "version": "1.0.0",
+  "description": "Actively blocks betting & gambling content (sites, widgets, ads, links) everywhere. Aggressive scrubbing on opted-in sites; HLTV preconfigured.",
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "embedded",
+        "enabled": true,
+        "path": "rules/embedded.json"
+      },
+      {
+        "id": "navigation",
+        "enabled": true,
+        "path": "rules/navigation.json"
+      }
+    ]
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["data/packs.js", "src/engine.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["blocked.html", "data/lists.json"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "options_page": "options/options.html",
+  "action": {
+    "default_title": "Betting Blocker",
+    "default_popup": "options/popup.html"
+  }
+}
